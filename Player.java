@@ -1,4 +1,4 @@
-package com.company;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -71,7 +71,7 @@ public class Player {
     // go fish method
     public void goFish(Deck deck) {
         hand.add(deck.cards.get(0));
-        deck.remove(0);
+//        deck.remove(0);
     }
 }
 
