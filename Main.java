@@ -2,7 +2,7 @@ package com.company;
 import java.util.Collections;
 import java.util.Scanner;
 
-// test comment
+// test 2 comment
 
 public class Main {
 
