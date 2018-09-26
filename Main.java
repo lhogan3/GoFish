@@ -124,7 +124,7 @@ public class Main {
             System.out.println("Jack - 11    Queen - 12");
             System.out.println("King - 13   Ace - 1\n");
 
-            while (true){  // there are no cards in deck and no cards in hands
+            while (true){  // there are no cards in deck and no cards in hands ends game TEST COMMIT
 
 
                 String rankAsk = P1.ask();
@@ -135,7 +135,7 @@ public class Main {
 
                     if (P2.hand.get(i).rank.equals(rankAsk)){
 
-                        System.out.println(P2.hand.get(i).rank + " of " + P2.hand.get(i).suit);
+                        System.out.println("Player 2 has: " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit);
                         goFish = false;
 
                     }
