@@ -2,14 +2,12 @@ package com.company;
 import java.util.Collections;
 import java.util.Scanner;
 
-// test 2 comment
-
 public class Main {
 
     public static void main(String[] args) {
 
         // TEST MODE ON / OFF
-        boolean test = false;
+        boolean test = true;
 
         // Ask to Start Game
         Scanner scanner = new Scanner(System.in);
@@ -145,7 +143,7 @@ public class Main {
                 }
 
                 if (goFish){
-
+                    P1.goFish(deck);
                     System.out.println("GO FISH");                }
 
             }

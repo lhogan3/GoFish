@@ -23,6 +23,14 @@ public class Player {
 
     // player asks computer for a card
     public String ask() {
+        // display player's hand
+        System.out.println("---------------YOUR HAND------------------------");
+
+        for (int p = 0; p < hand.size(); p++) {
+
+            System.out.println(hand.get(p).rank + " of " + hand.get(p).suit);
+
+        }
 
         Scanner scanner = new Scanner(System.in);
 
@@ -58,6 +66,12 @@ public class Player {
 
             return rank;
         }
+    }
+
+    // go fish method
+    public void goFish(Deck deck) {
+        hand.add(deck.cards.get(0));
+        deck.remove(0);
     }
 }
 
