@@ -15,7 +15,7 @@ public class Deck {
 
     Deck(){
 
-        cards = new ArrayList<>();
+        cards = new ArrayList<Card>();
 
         for (int i = 0; i < RANKS.length; i++) {
 

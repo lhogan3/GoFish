@@ -13,7 +13,7 @@ public class Player {
 
     Player(){
 
-        hand = new ArrayList<>();
+        hand = new ArrayList<Card>();
 
     }
 
