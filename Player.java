@@ -5,11 +5,14 @@ import java.util.Scanner;
 
 public class Player {
 
-
+    // players hand
     ArrayList<Card> hand;
 
+    //
     ArrayList<String> guesses = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "1"));
 
+    // amount of sets of 4 the player has
+    int books;
 
     Player(){
 
@@ -18,7 +21,7 @@ public class Player {
     }
 
 
-
+    // player asks computer for a card
     public String ask() {
 
         Scanner scanner = new Scanner(System.in);
