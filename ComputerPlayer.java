@@ -6,7 +6,4 @@ public class ComputerPlayer extends Player {
 
     ArrayList<Card> memory;
 
-    x = 5;
-
-
 }
