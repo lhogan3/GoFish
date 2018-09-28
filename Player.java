@@ -9,7 +9,7 @@ public class Player {
     ArrayList<Card> hand;
 
     //
-    ArrayList<String> guesses = new ArrayList<>(Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "1"));
+    ArrayList<String> options = new ArrayList<String>();
 
     // amount of sets of 4 the player has
     int books;
@@ -23,6 +23,8 @@ public class Player {
 
     // player asks computer for a card
     public String ask() {
+
+
         // display player's hand
         System.out.println("---------------YOUR HAND------------------------");
 
@@ -32,8 +34,16 @@ public class Player {
 
         }
 
+        for (int p = 0; p < hand.size(); p++) {
+
+            options.add(hand.get(p).rank);
+
+        }
+
+
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\n");
         System.out.println("Ask P2 if they have any ... ?   (q to quit)");
 
         String rank = scanner.nextLine();
@@ -44,13 +54,13 @@ public class Player {
             System.exit(0);
         }
 
-        if (guesses.contains(rank)) {
+        if (options.contains(rank)) {
 
             return rank;
 
         } else {
 
-            while (!guesses.contains(rank)) {
+            while (!options.contains(rank)) {
 
                 if (rank.equals("q") || rank.equals("Q")){
 
@@ -71,7 +81,9 @@ public class Player {
     // go fish method
     public void goFish(Deck deck) {
         hand.add(deck.cards.get(0));
-//        deck.remove(0);
+        deck.cards.remove(0);
+        deck.cards.trimToSize();
+        System.out.println("New deck size: " + deck.cards.size());
     }
 }
 

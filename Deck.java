@@ -6,7 +6,6 @@ public class Deck {
 
     ArrayList<Card> cards;
 
-    int size;
 
     String[] SUITS = {"c", "d", "h", "s"};
 
@@ -27,8 +26,6 @@ public class Deck {
 
             }
         }
-
-        size = cards.size();
 
     }
 }
