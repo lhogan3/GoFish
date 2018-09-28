@@ -144,36 +144,72 @@ public class Main {
 
             while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
 
-                // Ask Player 1 which rank they would like to ask for
-                String rankAsk = P1.ask();
+                boolean P1Turn = true;
 
-                // Loop through P2 hands looking for cards of requested rank // TODO This is where we will put in the lie percentage
-                boolean goFish = true;
-                for (int i = 0; i < P2.hand.size(); i++) {
+                while (P1Turn) {
+                    // Ask Player 1 which rank they would like to ask for
+                    String rankAsk = P1.ask();
 
-                    // If we find a card with the requested rank...
-                    if (P2.hand.get(i).rank.equals(rankAsk)) {
+                    // Loop through P2 hands looking for cards of requested rank // TODO This is where we will put in the lie percentage. Need to find way to combine with removing from P2 hand...(line 173)
+                    boolean goFish = true;
+                    for (int i = 0; i < P2.hand.size(); i++) {
 
-                        // we're not going fishing
-                        goFish = false;
+                        // If we find a card with the requested rank...
+                        if (P2.hand.get(i).rank.equals(rankAsk)) {
 
-                        // Create and add a 'new' card to add to P1's hand
-                        Card cardtoAdd = new Card(P2.hand.get(i).rank, P2.hand.get(i).suit);
-                        System.out.println("You got " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit + " from P2!");
-                        P1.hand.add(cardtoAdd);
+                            // we're not going fishing
+                            goFish = false;
+
+                            // Create and add a 'new' card to add to P1's hand
+                            Card cardtoAdd = P2.hand.get(i);
+                            System.out.println("You got " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit + " from P2!");
+                            P1.hand.add(cardtoAdd);
+                        }
                     }
+
+
+                    // Remove all (if any) cards of the requested rank from P2's hand
+                    P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+                    P2.hand.trimToSize();
+
+
+                    // if we found no cards, we FISH
+                    if (goFish && deck.cards.size() != 0) {
+                        System.out.println("Player 2 says, GO FISH!");
+                        Card draw = deck.cards.get(0);
+                        P1.hand.add(deck.cards.get(0));
+                        deck.cards.remove(0);
+                        deck.cards.trimToSize();
+
+                        if (draw.rank.equals(rankAsk)) {
+
+                            P1Turn = true;
+
+                        }
+
+                        else{
+
+                            P1Turn = false;
+                        }
+                    }
+
+                    P1.checkBooks();
+
+                    System.out.println("Books: " + P1.books);
+
                 }
 
-                // Remove all the cards of the requested rank from P2's hand
-                P2.hand.removeIf(card -> card.rank.equals(rankAsk));
-                P2.hand.trimToSize();
 
 
-                // if we found no cards, we FISH
-                if (goFish) {
-                    P1.goFish(deck);
-                    System.out.println("Player 2 says, GO FISH!");
-                }
+
+                // TODO: Check to make sure game is not over (check P1 books + P2 books = ?)
+
+
+                System.out.println("P2 turn begins...");
+
+
+
+                //P2.turn()
 
 
                 if (test) {
@@ -187,10 +223,6 @@ public class Main {
                 }
 
 
-                // TODO: Loop turn while not GO FISH,
-                // TODO: check to see if Go Fish card is requested card (gets to continue turn)
-                // TODO: end of turn: check for any new books
-                // TODO: Check to make sure game is not over
                 // TODO: Computer Player (smart and dumb modes)
                 // TODO: Check if game is not over
                 // TODO: Make it loop
