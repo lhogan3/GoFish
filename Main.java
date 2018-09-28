@@ -106,8 +106,9 @@ public class Main {
                 deck.cards.remove(i);
             }
 
+            // Adjust deck size after dealing
             deck.cards.trimToSize();
-            
+
             // FOR TESTING
             if (test) {
 
@@ -130,9 +131,7 @@ public class Main {
                 }
             }
 
-
-            // TODO: START GAME LOOP ...........................................................................
-
+            // Rank Selection Menu
             System.out.println("\n");
             System.out.println("Rank selection menu:");
             System.out.println("2   3   4   5   6");
@@ -140,61 +139,79 @@ public class Main {
             System.out.println("Jack - 11    Queen - 12");
             System.out.println("King - 13   Ace - 1\n");
 
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // GAME LOOP //
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
 
+                // Start P1 turn (keep asking until go fish and go fish is not card requested)
                 boolean P1Turn = true;
-
                 while (P1Turn) {
+
                     // Ask Player 1 which rank they would like to ask for
                     String rankAsk = P1.ask();
 
-                    // Loop through P2 hands looking for cards of requested rank // TODO This is where we will put in the lie percentage. Need to find way to combine with removing from P2 hand...(line 173)
                     boolean goFish = true;
+                    // TODO: Decide if P2 lying or not
+                    // Loop through P2 hands looking for cards of requested rank
                     for (int i = 0; i < P2.hand.size(); i++) {
 
                         // If we find a card with the requested rank...
-                        if (P2.hand.get(i).rank.equals(rankAsk)) {
-
+                        if (P2.hand.get(i).rank.equals(rankAsk)) { //TODO: and not lying
                             // we're not going fishing
                             goFish = false;
 
-                            // Create and add a 'new' card to add to P1's hand
+                            // Add the card to P1's hand
                             Card cardtoAdd = P2.hand.get(i);
                             System.out.println("You got " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit + " from P2!");
                             P1.hand.add(cardtoAdd);
                         }
                     }
 
-
-                    // Remove all (if any) cards of the requested rank from P2's hand
+                    // TODO: If not lying...
+                    // Remove all (if any) cards of the requested rank from P2's hand // TODO: Need to make it so we can combine this with above for lie percentage
                     P2.hand.removeIf(card -> card.rank.equals(rankAsk));
                     P2.hand.trimToSize();
 
 
-                    // if we found no cards, we FISH
-                    if (goFish) { // && deck.cards.size != 0
+                    // if we found no cards (or P2 is lying), we FISH!
+                    if (goFish) { //TODO: && deck.cards.size != 0
+
                         System.out.println("Player 2 says, GO FISH!");
+
+                        // Grab card off top of deck/pool
                         Card draw = deck.cards.get(0);
 
+                        // Add to P1 hand
                         P1.hand.add(draw);
 
+                        // Remove from deck and resize
                         deck.cards.remove(0);
                         deck.cards.trimToSize();
 
+                        // Check to see if card was what P1 asked for...continue game if yes
                         if (draw.rank.equals(rankAsk)) {
 
                             P1Turn = true;
 
                         }
 
+                        // Else, end P1's turn
                         else{
 
                             P1Turn = false;
                         }
                     }
 
+                    // Check for new books!
                     P1.checkBooks();
 
+
+                    // TESTING
                     System.out.println("Books: " + P1.books);
 
                 }
@@ -209,7 +226,12 @@ public class Main {
 
 
 
-                //P2.turn()
+                //TODO - P2.turn()
+
+                // TODO: Computer Player (smart and dumb modes)
+                // TODO: Check if game is not over
+                // TODO: Make it loop
+                // TODO: Add lie percentage - (directions say on responses so that's just changing one spot highlighted above)
 
 
                 if (test) {
@@ -221,15 +243,7 @@ public class Main {
 
                     }
                 }
-
-
-                // TODO: Computer Player (smart and dumb modes)
-                // TODO: Check if game is not over
-                // TODO: Make it loop
-                // TODO: Add lie percentage - (directions say on responses so that's just changing one spot highlighted above)
-                //
-
-
+                
             }
         }
 
