@@ -107,9 +107,7 @@ public class Main {
             }
 
             deck.cards.trimToSize();
-
-            System.out.println("Size of deck: " + deck.cards.size());
-
+            
             // FOR TESTING
             if (test) {
 
@@ -174,10 +172,12 @@ public class Main {
 
 
                     // if we found no cards, we FISH
-                    if (goFish && deck.cards.size() != 0) {
+                    if (goFish) { // && deck.cards.size != 0
                         System.out.println("Player 2 says, GO FISH!");
                         Card draw = deck.cards.get(0);
-                        P1.hand.add(deck.cards.get(0));
+
+                        P1.hand.add(draw);
+
                         deck.cards.remove(0);
                         deck.cards.trimToSize();
 

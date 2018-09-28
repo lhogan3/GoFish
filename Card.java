@@ -1,5 +1,6 @@
+import java.util.Comparator;
 
-public class Card {
+public class Card{
 
     // ace,2,3,etc.
     String rank;
@@ -14,5 +15,33 @@ public class Card {
         this.suit = suit;
 
 
+    }
+
+
+//    public int compare(Card one, Card two){
+//
+//        int oneRank = Integer.parseInt(one.rank);
+//        int twoRank = Integer.parseInt(two.rank);
+//        int returnVal = 0;
+//
+//        if(oneRank < twoRank){
+//            returnVal =  -1;
+//        }else if(oneRank > twoRank){
+//            returnVal =  1;
+//        }else if(oneRank == twoRank){
+//            returnVal =  0;
+//        }
+//        return returnVal;
+//    }
+
+
+    public int compareTo(Card card)
+    {
+
+        int oneRank = Integer.parseInt(this.rank);
+        int twoRank = Integer.parseInt(card.rank);
+
+
+        return(oneRank - twoRank);
     }
 }
