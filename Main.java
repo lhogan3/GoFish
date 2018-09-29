@@ -215,7 +215,8 @@ public class Main {
 
 
                     // TESTING
-                    System.out.println("Books: " + P1.books);
+                    System.out.println("Player 1 books: " + P1.books);
+                    System.out.println("Player 2 books: " + P2.books);
 
                 }
 
