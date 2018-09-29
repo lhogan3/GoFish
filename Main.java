@@ -18,6 +18,8 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    public void deckCheck(String rank, )
+
     public static void main(String[] args) {
 
         Random generator = new Random();
@@ -92,7 +94,7 @@ public class Main {
             }
 
             // Initialize Player 1 and Player 2
-            Player P1 = new Player();
+            Player P1 = new HumanPlayer();
             Player P2 = new ComputerPlayer();
 
 
@@ -156,7 +158,7 @@ public class Main {
                 while (P1Turn) {
 
                     // Ask Player 1 which rank they would like to ask for
-                    String rankAsk = P1.ask();
+                    String rankAsk = ((HumanPlayer) P1).ask();
 
                     boolean goFish = true;
                     // TODO: Decide if P2 lying or not

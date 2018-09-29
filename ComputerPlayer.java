@@ -10,6 +10,7 @@ public class ComputerPlayer extends Player {
     boolean isSmart;
 
     public String compAsk(String rank){
+
         
     }
 }
