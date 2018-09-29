@@ -6,6 +6,6 @@ public class ComputerPlayer extends Player {
     ArrayList<Card> memory;
     // probability the computer lies to you when you ask for a card
     int lyingChance;
-    // does the computer remember your cars or not
+    // does the computer remember your cards or not
     boolean isSmart;
 }

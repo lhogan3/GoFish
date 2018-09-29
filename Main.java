@@ -3,6 +3,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Main {
 
@@ -206,6 +207,18 @@ public class Main {
                             P1Turn = false;
                         }
                     }
+                    boolean P2Turn = true;
+                    while(P2Turn){
+                        if(((ComputerPlayer) P2).isSmart) {
+                            // need to make smart decisions when asking for cards. Memory
+                        }
+                        else{
+                            //going to have the computer ask for a random card
+                            String ask =
+
+                        }
+                    }
+
 
                     // Check for new books!
                     P1.checkBooks();
