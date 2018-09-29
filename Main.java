@@ -189,6 +189,9 @@ public class Main {
                         // Add to P1 hand
                         P1.hand.add(draw);
 
+                        // Display what you picked up
+                        System.out.println("You got " + draw.rank + " of " + draw.suit + " from the deck!");
+
                         // Remove from deck and resize
                         deck.cards.remove(0);
                         deck.cards.trimToSize();
