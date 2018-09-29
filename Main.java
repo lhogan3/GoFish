@@ -20,6 +20,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Random generator = new Random();
+
         System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
         // TEST MODE ON / OFF
@@ -217,7 +219,9 @@ public class Main {
                         }
                         else{
                             //going to have the computer ask for a random card
-                            String ask =
+                            int askInt = (generator.nextInt(13) + 1);
+                            String  ask = Integer.toString(askInt);
+                            String compAsk = ((ComputerPlayer) P2).compAsk(ask);
 
                         }
                     }
