@@ -190,6 +190,9 @@ public class Main {
                         // Add to P1 hand
                         P1.hand.add(draw);
 
+                        // Display what you picked up
+                        System.out.println("You got " + draw.rank + " of " + draw.suit + " from the deck!");
+
                         // Remove from deck and resize
                         deck.cards.remove(0);
                         deck.cards.trimToSize();
@@ -225,7 +228,8 @@ public class Main {
 
 
                     // TESTING
-                    System.out.println("Books: " + P1.books);
+                    System.out.println("Player 1 books: " + P1.books);
+                    System.out.println("Player 2 books: " + P2.books);
 
                 }
 
