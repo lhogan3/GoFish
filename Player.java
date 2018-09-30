@@ -6,6 +6,10 @@ import java.util.Scanner;
 
 public abstract class Player {
 
+    String type;
+
+    public abstract String getType();
+
     // players hand
     ArrayList<Card> hand;
 

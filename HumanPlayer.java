@@ -7,6 +7,12 @@ public class HumanPlayer extends Player{
     ArrayList<String> options = new ArrayList<String>();
 
     // player asks computer for a card
+    String type = "Human";
+
+    public String getType() {
+        return type;
+    }
+
     public String ask() {
 
         // display player's hand

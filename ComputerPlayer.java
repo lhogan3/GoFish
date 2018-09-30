@@ -9,6 +9,11 @@ public class ComputerPlayer extends Player {
     int lyingChance;
     // does the computer remember your cards or not
     boolean isSmart;
+    String type = "Computer";
+
+    public String getType() {
+        return type;
+    }
 
     public String ask(){
         if(isSmart){

@@ -29,6 +29,11 @@ public class Main {
             if (p2.hand.get(i).rank.equals(rank)) { //TODO: and not lying
                 // we're not going fishing
                 goFish = false;
+                Card memoryCard = new Card(p2.hand.get(i).rank, p2.hand.get(i).suit);
+                if(p1.getType() == "Computer"){
+                    //need to add the card to the memory arraylist for the computer player
+                    //in the case that the computer is smart
+                }
 
                 // Add the card to P1's hand
                 Card cardtoAdd = p2.hand.get(i);
@@ -210,9 +215,9 @@ public class Main {
 
                 // Start P1 turn (keep asking until go fish and go fish is not card requested)
                 boolean P1Turn = true;
-                boolean P2Turn = true;
-                while (P1Turn) {
+                boolean P2Turn;
 
+                while (P1Turn) {
                     // Ask Player 1 which rank they would like to ask for
                     String rankAskP1 = P1.ask();
                     // Gameflow for the rank asked for
