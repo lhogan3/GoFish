@@ -87,12 +87,29 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        // create writer to write to file and one to clear file
+        PrintWriter fileRecord = null;
+        PrintWriter newGame = null;
+
+        // create new game printer
         try {
-            FileOutputStream fileRecord = null;
-            fileRecord = new FileOutputStream("goFishRecord.txt");
-        } catch (FileNotFoundException ex){
-            
+            newGame =  new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",false)));
+        } catch (IOException ex) {
+            System.out.println("File does not exist could not clear");
         }
+
+        // clears file prints new game
+        newGame.append("New Game:");
+        // close file
+        newGame.close();
+
+        // create game recorder
+        try {
+            fileRecord = new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",true)));
+        } catch (IOException ex){
+            System.out.println("File does not exist game will not be recorded");
+        }
+
 
         System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
