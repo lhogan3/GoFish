@@ -34,6 +34,7 @@ public class Main {
                 if(p1.getType() == "Computer"){
                     //need to add the card to the memory arraylist for the computer player
                     //in the case that the computer is smart
+
                 }
                 else if(p2.getType() == "Computer"){
 
@@ -304,9 +305,11 @@ public class Main {
                     P1.checkBooks();
 
 
-                    // TESTING
+                    // display to console and print to file the books
                     System.out.println("Player 1 books: " + P1.books);
                     System.out.println("Player 2 books: " + P2.books);
+                    fileRecord.append("Player 1 books " + P1.books);
+                    fileRecord.append("Player 2 books " + P2.books);
 
                 }
 
