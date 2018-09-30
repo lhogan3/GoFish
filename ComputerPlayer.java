@@ -11,6 +11,10 @@ public class ComputerPlayer extends Player {
     boolean isSmart;
     String type = "Computer";
 
+    ComputerPlayer(boolean computerSmart){
+        isSmart = computerSmart;
+    }
+
     public String getType() {
         return type;
     }
@@ -18,8 +22,7 @@ public class ComputerPlayer extends Player {
     public String ask(){
         if(isSmart){
 
-        }
-        else{
+        }else{
             Random generator = new Random();
             int askInt = (generator.nextInt(13) + 1);
             String ask = Integer.toString(askInt);

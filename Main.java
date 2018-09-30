@@ -134,6 +134,27 @@ public class Main {
 
         }
 
+        // player determines if the computer is smart or not
+        System.out.println("Would you like the computer to be smart (remember all guesses)? (y)");
+        System.out.println("Or not? (n)\n");
+
+        String smart = scanner.nextLine();
+        while (!smart.toLowerCase().equals("y") && !smart.toLowerCase().equals("n")){
+
+            System.out.println("Invalid Response...");
+            System.out.println("Would you like the computer to be smart (remember all guesses)? (y)");
+            System.out.println("Or not? (n)\n");
+
+            smart = scanner.nextLine();
+        }
+        boolean isComputerSmart = false;
+
+        if (smart.toLowerCase().equals("y")){
+            isComputerSmart = true;
+        } else if (smart.toLowerCase().equals("n")){
+            isComputerSmart = false;
+        }
+
         // Start Game!
         if (start.toLowerCase().equals("y")) {
 
@@ -182,7 +203,7 @@ public class Main {
 
             // Initialize Player 1 and Player 2
             Player P1 = new HumanPlayer();
-            Player P2 = new ComputerPlayer();
+            Player P2 = new ComputerPlayer(isComputerSmart);
 
 
             System.out.println("dealing...\n");
@@ -246,7 +267,7 @@ public class Main {
 
                 for (int p = 0; p < P1.hand.size(); p++) {
                     // print to file
-                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n)";
+                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
                 }
                 // print to file
                 fileRecord.append("---------------P2 HAND------------------------\n");
