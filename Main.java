@@ -211,15 +211,12 @@ public class Main {
                 for (int p = 0; p < P1.hand.size(); p++) {
 
                     System.out.println(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit);
-
                 }
 
                 System.out.println("---------------P2 HAND------------------------\n");
 
                 for (int p = 0; p < P2.hand.size(); p++) {
-
                     System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
-
                 }
             }
 
@@ -238,7 +235,21 @@ public class Main {
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
+            while (true) {
+                // print to file
+                fileRecord.append("---------------P1 HAND------------------------\n");
+
+                for (int p = 0; p < P1.hand.size(); p++) {
+                    // print to file
+                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n)";
+                }
+                // print to file
+                fileRecord.append("---------------P2 HAND------------------------\n");
+
+                for (int p = 0; p < P2.hand.size(); p++) {
+                    // print to file
+                    fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
+                }
 
                 // Start P1 turn (keep asking until go fish and go fish is not card requested)
                 boolean P1Turn = true;
