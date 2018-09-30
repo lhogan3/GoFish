@@ -234,8 +234,13 @@ public class Main {
             // GAME LOOP //
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+            // initially turn number 1
+            int turnNumber = 1;
             while (true) {
+                // print turn number
+                fileRecord.append("Turn number " + turnNumber);
+                // increment turn number
+                turnNumber++;
                 // print to file
                 fileRecord.append("---------------P1 HAND------------------------\n");
 
@@ -258,12 +263,16 @@ public class Main {
                 while (P1Turn) {
                     // Ask Player 1 which rank they would like to ask for
                     String rankAskP1 = P1.ask();
+                    // print asks to file
+                    fileRecord.append("Player 1 asked Player 2 for: " + rankAskP1 + "\n");
                     // Gameflow for the rank asked for
                     P1Turn = deckCheck(rankAskP1, P1, P2, deck);
                     P2Turn = !P1Turn;
 
                 while(P2Turn){
                     String rankAskP2 = P2.ask();
+                    // print asks to file
+                    fileRecord.append("Player 2 asked Player 1 for: " + rankAskP2 + "\n");
 
                     P2Turn = deckCheck(rankAskP2, P2, P1, deck);
                     P1Turn = !P2Turn;
