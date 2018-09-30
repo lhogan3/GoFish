@@ -260,8 +260,18 @@ public class Main {
                     }
 
                     // Check for new books!
-                    P1.checkBooks(rankAsk, P2);
 
+                    if (goFish) {
+
+                        P1.checkBooks(P2, P1.hand.get(P1.hand.size()-1).rank);
+
+                    }
+
+                    else{
+
+                        P1.checkBooks(P2, rankAsk);
+
+                    }
 
                     // TESTING
                     System.out.println("Books: " + P1.books);

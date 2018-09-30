@@ -79,18 +79,18 @@ public class Player {
     }
 
 
-    // cant use lamba expression in a for loop....so this is the best i got
-    public void checkBooks(String rankAsk, ComputerPlayer P2){
+        // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.
+        public void checkBooks(ComputerPlayer P2, String rankOfInterest){
 
-        if (hasFour(rankAsk)) {
+        if (hasFour(rankOfInterest)) {
 
-            hand.removeIf(card -> card.rank.equals(rankAsk));
+            hand.removeIf(card -> card.rank.equals(rankOfInterest));
             hand.trimToSize();
             books = books + 1;
 
             for (int item = 0; item < P2.memory.size(); item++) {
 
-                if (P2.memory.get(item) == rankAsk) {
+                if (P2.memory.get(item) == rankOfInterest) {
 
                     P2.memory.remove(item);
                     P2.memory.trimToSize();
@@ -98,7 +98,6 @@ public class Player {
 
             }
         }
-
     }
 
     public boolean hasFour(String rankSeek) {
