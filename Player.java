@@ -18,10 +18,7 @@ public abstract class Player {
 
     }
 
-    public String ask(){
-
-    }
-
+    public abstract String ask();
 
     // cant use lamba expression in a for loop....so this is the best i got
     public void checkBooks(){

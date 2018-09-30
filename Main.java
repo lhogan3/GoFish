@@ -18,11 +18,66 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    public void deckCheck(String rank, )
+    public static boolean deckCheck(String rank, Player p1, Player p2, Deck d){
+        boolean goFish = true;
+
+        // TODO: Decide if P2 lying or not
+        // Loop through P2 hands looking for cards of requested rank
+        for (int i = 0; i < p2.hand.size(); i++) {
+
+            // If we find a card with the requested rank...
+            if (p2.hand.get(i).rank.equals(rank)) { //TODO: and not lying
+                // we're not going fishing
+                goFish = false;
+
+                // Add the card to P1's hand
+                Card cardtoAdd = p2.hand.get(i);
+                System.out.println("You got " + p2.hand.get(i).rank + " of " + p2.hand.get(i).suit);
+                p1.hand.add(cardtoAdd);
+            }
+
+
+        }
+
+        // TODO: If not lying...
+        // Remove all (if any) cards of the requested rank from P2's hand // TODO: Need to make it so we can combine this with above for lie percentage
+        p2.hand.removeIf(card -> card.rank.equals(rank));
+        p2.hand.trimToSize();
+
+        // if we found no cards (or P2 is lying), we FISH!
+        if (goFish) { //TODO: && deck.cards.size != 0
+
+            System.out.println("Player 2 says, GO FISH!");
+
+            // Grab card off top of deck/pool
+            Card draw = d.cards.get(0);
+
+            // Add to P1 hand
+            p1.hand.add(draw);
+
+            // Display what you picked up
+            System.out.println("You got " + draw.rank + " of " + draw.suit + " from the deck!");
+
+            // Remove from deck and resize
+            d.cards.remove(0);
+            d.cards.trimToSize();
+
+            // Check to see if card was what P1 asked for...continue game if yes
+            if (draw.rank.equals(rank)) {
+
+                return true;
+
+            }
+
+            // Else, end current players turn
+            else{
+                return false;
+            }
+        }
+
+    }
 
     public static void main(String[] args) {
-
-        Random generator = new Random();
 
         System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
@@ -155,78 +210,21 @@ public class Main {
 
                 // Start P1 turn (keep asking until go fish and go fish is not card requested)
                 boolean P1Turn = true;
+                boolean P2Turn = true;
                 while (P1Turn) {
 
                     // Ask Player 1 which rank they would like to ask for
-                    String rankAsk = ((HumanPlayer) P1).ask();
+                    String rankAskP1 = P1.ask();
+                    // Gameflow for the rank asked for
+                    P1Turn = deckCheck(rankAskP1, P1, P2, deck);
+                    P2Turn = !P1Turn;
 
-                    boolean goFish = true;
-                    // TODO: Decide if P2 lying or not
-                    // Loop through P2 hands looking for cards of requested rank
-                    for (int i = 0; i < P2.hand.size(); i++) {
+                while(P2Turn){
+                    String rankAskP2 = P2.ask();
 
-                        // If we find a card with the requested rank...
-                        if (P2.hand.get(i).rank.equals(rankAsk)) { //TODO: and not lying
-                            // we're not going fishing
-                            goFish = false;
-
-                            // Add the card to P1's hand
-                            Card cardtoAdd = P2.hand.get(i);
-                            System.out.println("You got " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit + " from P2!");
-                            P1.hand.add(cardtoAdd);
-                        }
-                    }
-
-                    // TODO: If not lying...
-                    // Remove all (if any) cards of the requested rank from P2's hand // TODO: Need to make it so we can combine this with above for lie percentage
-                    P2.hand.removeIf(card -> card.rank.equals(rankAsk));
-                    P2.hand.trimToSize();
-
-
-                    // if we found no cards (or P2 is lying), we FISH!
-                    if (goFish) { //TODO: && deck.cards.size != 0
-
-                        System.out.println("Player 2 says, GO FISH!");
-
-                        // Grab card off top of deck/pool
-                        Card draw = deck.cards.get(0);
-
-                        // Add to P1 hand
-                        P1.hand.add(draw);
-
-                        // Display what you picked up
-                        System.out.println("You got " + draw.rank + " of " + draw.suit + " from the deck!");
-
-                        // Remove from deck and resize
-                        deck.cards.remove(0);
-                        deck.cards.trimToSize();
-
-                        // Check to see if card was what P1 asked for...continue game if yes
-                        if (draw.rank.equals(rankAsk)) {
-
-                            P1Turn = true;
-
-                        }
-
-                        // Else, end P1's turn
-                        else{
-
-                            P1Turn = false;
-                        }
-                    }
-                    boolean P2Turn = true;
-                    while(P2Turn){
-                        if(((ComputerPlayer) P2).isSmart) {
-                            // need to make smart decisions when asking for cards. Memory
-                        }
-                        else{
-                            //going to have the computer ask for a random card
-                            int askInt = (generator.nextInt(13) + 1);
-                            String  ask = Integer.toString(askInt);
-                            String compAsk = ((ComputerPlayer) P2).compAsk(ask);
-
-                        }
-                    }
+                    P2Turn = deckCheck(rankAskP2, P2, P1, deck);
+                    P1Turn = !P2Turn;
+                }
 
 
                     // Check for new books!
