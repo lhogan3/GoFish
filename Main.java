@@ -34,6 +34,9 @@ public class Main {
                     //need to add the card to the memory arraylist for the computer player
                     //in the case that the computer is smart
                 }
+                else if(p2.getType() == "Computer"){
+
+                }
 
                 // Add the card to P1's hand
                 Card cardtoAdd = p2.hand.get(i);
