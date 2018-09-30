@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Random;
+import java.io.*;
 
 public class Main {
 
@@ -86,6 +87,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        FileOutputStream fileRecord = null;
+        fileRecord = new FileOutputStream("goFishRecord.txt");
 
         System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
