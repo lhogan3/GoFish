@@ -45,6 +45,53 @@ public class Main {
         // Start Game!
         if (start.toLowerCase().equals("y")) {
 
+
+            // Get game settings (smart / dumb)
+            System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+            String mode = scanner.nextLine();
+            while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
+
+                System.out.println("Invalid Response...");
+                System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+
+                mode = scanner.nextLine();
+
+            }
+
+            // Computer Lie Percentage
+            System.out.println("Computer Lie Percentage? (0-100)");
+
+            while (!scanner.hasNextInt()) {
+                String input = scanner.next();
+                System.out.printf("\"%s\" is not a valid number.\n", input);
+            }
+
+            Integer lie = scanner.nextInt();
+
+            while (lie < 0 || lie > 100) {
+
+                while (!scanner.hasNextInt()) {
+                    String input = scanner.next();
+                    System.out.printf("\"%s\" is not a valid number.\n", input);
+
+                    System.out.println("Invalid Response...");
+                    System.out.println("Computer Lie Percentage? (0-100)");
+
+                    lie = scanner.nextInt();
+
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Print settings
+            System.out.println("\n");
+            System.out.println("Mode set to: " + mode);
+            System.out.println("Computer Lie Percentage set to: " + lie);
+
+
+
+
             // Initialize new deck of cards
 
             Deck deck = new Deck();
@@ -68,7 +115,7 @@ public class Main {
             }
 
             // Shuffle the deck
-
+            System.out.println("\n");
             System.out.println("shuffling...");
             Collections.shuffle(deck.cards);
 
@@ -156,12 +203,21 @@ public class Main {
                     String rankAsk = P1.ask();
 
                     boolean goFish = true;
-                    // TODO: Decide if P2 lying or not
+                    boolean compLie;
+
+                    if(new java.util.Random().nextInt(100) < lie){
+                        compLie = true;
+                    }
+                    else{
+                        compLie = false;
+                    }
+
+
                     // Loop through P2 hands looking for cards of requested rank
                     for (int i = 0; i < P2.hand.size(); i++) {
 
                         // If we find a card with the requested rank...
-                        if (P2.hand.get(i).rank.equals(rankAsk)) { //TODO: and not lying
+                        if (P2.hand.get(i).rank.equals(rankAsk) && !compLie) {
                             // we're not going fishing
                             goFish = false;
 
@@ -172,14 +228,18 @@ public class Main {
                         }
                     }
 
-                    // TODO: If not lying...
-                    // Remove all (if any) cards of the requested rank from P2's hand // TODO: Need to make it so we can combine this with above for lie percentage
-                    P2.hand.removeIf(card -> card.rank.equals(rankAsk));
-                    P2.hand.trimToSize();
+
+                    if (!compLie) {
+
+                        // Remove all (if any) cards of the requested rank from P2's hand
+                        P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+                        P2.hand.trimToSize();
+
+                    }
 
 
                     // if we found no cards (or P2 is lying), we FISH!
-                    if (goFish) { //TODO: && deck.cards.size != 0
+                    if (goFish && deck.cards.size() != 0) {
 
                         System.out.println("Player 2 says, GO FISH!");
 
@@ -243,7 +303,7 @@ public class Main {
 
                     }
                 }
-                
+
             }
         }
 
