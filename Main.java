@@ -233,6 +233,7 @@ public class Main {
                     // if we found no cards (or P2 is lying), we FISH!
                     if (goFish && deck.cards.size() != 0) {
 
+                        System.out.println("\n");
                         System.out.println("Player 2 says, GO FISH!");
 
                         // Grab card off top of deck/pool
@@ -240,6 +241,9 @@ public class Main {
 
                         // Add to P1 hand
                         P1.hand.add(draw);
+
+                        System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
+
 
                         // Remove from deck and resize
                         deck.cards.remove(0);
@@ -273,8 +277,8 @@ public class Main {
 
                     }
 
-                    // TESTING
-                    System.out.println("Books: " + P1.books);
+                    System.out.println("\n");
+                    System.out.println("Your Books: " + P1.books);
 
                 }
 
@@ -282,12 +286,22 @@ public class Main {
 
 
                 // TODO: Check to make sure game is not over (check P1 books + P2 books = ?)
+                // I think a break will work here (will break while true game loop
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                System.out.println(P2.memory);
 
                 System.out.println("P2 turn begins...");
 
                 boolean P2Turn = true;
                 while (P2Turn) {
+
+                    System.out.println(P2.determineAsk());
+
+
+                    P2Turn = false;
+
 
                 //TODO: P2 will ask P1 for cards using logic:
                     // Ask for a card that is in memory and in hand else...
@@ -298,7 +312,6 @@ public class Main {
                 }
 
 
-                if (test) {
                     System.out.println("---------------P2 HAND------------------------\n");
 
                     for (int p = 0; p < P2.hand.size(); p++) {
@@ -308,7 +321,6 @@ public class Main {
                     }
                 }
 
-            }
         }
 
         // Quit game
