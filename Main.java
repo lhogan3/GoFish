@@ -87,8 +87,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        FileOutputStream fileRecord = null;
-        fileRecord = new FileOutputStream("goFishRecord.txt");
+        try {
+            FileOutputStream fileRecord = null;
+            fileRecord = new FileOutputStream("goFishRecord.txt");
+        } catch (FileNotFoundException ex){
+            
+        }
 
         System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
