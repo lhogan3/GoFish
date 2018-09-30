@@ -1,4 +1,3 @@
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,20 +5,7 @@ import java.util.Scanner;
 
 public class Main {
 
-
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
     public static void main(String[] args) {
-
-        System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
         // TEST MODE ON / OFF
         boolean test = false;
@@ -46,7 +32,7 @@ public class Main {
         if (start.toLowerCase().equals("y")) {
 
 
-            // Get game settings (smart / dumb)
+            // Get game mode (smart / dumb)
             System.out.println("Smart (s) or Dumb (d) Computer Mode?");
             String mode = scanner.nextLine();
             while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
@@ -58,7 +44,7 @@ public class Main {
 
             }
 
-            // Computer Lie Percentage
+            // Get Computer Lie Percentage
             System.out.println("Computer Lie Percentage? (0-100)");
 
             while (!scanner.hasNextInt()) {
@@ -88,8 +74,6 @@ public class Main {
             System.out.println("\n");
             System.out.println("Mode set to: " + mode);
             System.out.println("Computer Lie Percentage set to: " + lie);
-
-
 
 
             // Initialize new deck of cards
@@ -137,7 +121,7 @@ public class Main {
 
             // Initialize Player 1 and Player 2
             Player P1 = new Player();
-            Player P2 = new ComputerPlayer();
+            ComputerPlayer P2 = new ComputerPlayer();
 
 
             System.out.println("dealing...\n");
@@ -195,14 +179,23 @@ public class Main {
 
             while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
 
-                // Start P1 turn (keep asking until go fish and go fish is not card requested)
+                // Start P1 turn (keep asking until go fish (and go fish is not card requested))
                 boolean P1Turn = true;
                 while (P1Turn) {
 
-                    // Ask Player 1 which rank they would like to ask for
+                    // Ask Player 1 which rank they would like to ask P2 for
                     String rankAsk = P1.ask();
 
+                    // Add the requested rank to P2's "memory" if it is not already in it
+                    // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
+                    if (!P2.memory.contains(rankAsk)) {
+                        P2.memory.add(rankAsk);
+                    }
+
+                    // Go Fish flag
                     boolean goFish = true;
+
+                    // Set if P2 should be lying based on lie percentage
                     boolean compLie;
 
                     if(new java.util.Random().nextInt(100) < lie){
@@ -216,8 +209,9 @@ public class Main {
                     // Loop through P2 hands looking for cards of requested rank
                     for (int i = 0; i < P2.hand.size(); i++) {
 
-                        // If we find a card with the requested rank...
+                        // If we find a card with the requested rank and P2 is not lying...
                         if (P2.hand.get(i).rank.equals(rankAsk) && !compLie) {
+
                             // we're not going fishing
                             goFish = false;
 
@@ -228,13 +222,11 @@ public class Main {
                         }
                     }
 
-
+                    // Also if P2 not lying, this removes cards from their hand
                     if (!compLie) {
-
                         // Remove all (if any) cards of the requested rank from P2's hand
                         P2.hand.removeIf(card -> card.rank.equals(rankAsk));
                         P2.hand.trimToSize();
-
                     }
 
 
@@ -268,7 +260,7 @@ public class Main {
                     }
 
                     // Check for new books!
-                    P1.checkBooks();
+                    P1.checkBooks(rankAsk, P2);
 
 
                     // TESTING
@@ -284,14 +276,16 @@ public class Main {
 
                 System.out.println("P2 turn begins...");
 
+                boolean P2Turn = true;
+                while (P2Turn) {
+
+                //TODO: P2 will ask P1 for cards using logic:
+                    // Ask for a card that is in memory and in hand else...
+                    // If no cards from memory are in hand - pick a random rank in hand
 
 
-                //TODO - P2.turn()
 
-                // TODO: Computer Player (smart and dumb modes)
-                // TODO: Check if game is not over
-                // TODO: Make it loop
-                // TODO: Add lie percentage - (directions say on responses so that's just changing one spot highlighted above)
+                }
 
 
                 if (test) {
