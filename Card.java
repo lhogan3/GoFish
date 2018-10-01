@@ -11,7 +11,7 @@ public class Card {
     // (i.e heart, diamond, spade, or club)
     String suit;
 
-    //Constuctor for the Card Class giving it a rank and a suit.
+    //Constructor for the Card Class giving it a rank and a suit.
     Card(String rank, String suit) {
 
         this.rank = rank;
