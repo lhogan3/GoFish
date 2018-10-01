@@ -30,10 +30,12 @@ public class Main {
             if (p2.hand.get(i).rank.equals(rank)) { //TODO: and not lying
                 // we're not going fishing
                 goFish = false;
+                //need to create a card for for the
                 Card memoryCard = new Card(p2.hand.get(i).rank, p2.hand.get(i).suit);
                 if(p1.getType() == "Computer"){
                     //need to add the card to the memory arraylist for the computer player
                     //in the case that the computer is smart
+
 
                 }
                 else if(p2.getType() == "Computer"){

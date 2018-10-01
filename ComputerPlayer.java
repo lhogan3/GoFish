@@ -22,7 +22,7 @@ public class ComputerPlayer extends Player {
     public String ask(){
         if(isSmart){
 
-        }else{
+        } else{
             Random generator = new Random();
             int askInt = (generator.nextInt(13) + 1);
             String ask = Integer.toString(askInt);

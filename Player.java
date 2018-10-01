@@ -13,6 +13,8 @@ public abstract class Player {
     // players hand
     ArrayList<Card> hand;
 
+    ArrayList<Card> memory;
+
     // amount of sets of 4 the player has
     int books;
 
