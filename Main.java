@@ -344,7 +344,7 @@ public class Main {
                         // If we find a card with the requested rank and P2 is not lying...
                         if (P1.hand.get(i).rank.equals(rankAsk)) {
 
-                            P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+                            P2.memory.removeIf(m -> m.equals(rankAsk));
 
                             // we're not going fishing
                             goFish = false;

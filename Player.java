@@ -36,6 +36,8 @@ public class Player {
 
         }
 
+        options.clear();
+
         for (int p = 0; p < hand.size(); p++) {
 
             options.add(hand.get(p).rank);
