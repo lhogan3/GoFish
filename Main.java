@@ -232,7 +232,7 @@ public class Main {
                     // Set if P2 should be lying based on lie percentage
                     boolean compLie;
 
-                    if(new java.util.Random().nextInt(100) < lie){
+                    if(new java.util.Random().nextInt(100) <= lie){
                         compLie = true;
                     }
                     else{
