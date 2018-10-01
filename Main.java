@@ -217,8 +217,32 @@ public class Main {
                 boolean P1Turn = true;
                 while (P1Turn) {
 
-                    // Ask Player 1 which rank they would like to ask P2 for
-                    String rankAsk = P1.ask();
+                    String rankAsk;
+
+                    if (P1.hand.size() == 0){
+
+                        // Grab card off top of deck/pool
+                        Card draw = deck.cards.get(0);
+
+                        // Add to P1 hand
+                        P1.hand.add(draw);
+
+                        // Remove from deck and resize
+                        deck.cards.remove(0);
+                        deck.cards.trimToSize();
+
+                        System.out.println("You ran out of cards, you went fishing...");
+                        System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
+
+                        rankAsk = draw.rank;
+
+                    }
+
+
+                    else {
+                        // Ask Player 1 which rank they would like to ask P2 for
+                        rankAsk = P1.ask();
+                    }
 
                     // Add the requested rank to P2's "memory" if it is not already in it
                     // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
