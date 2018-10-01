@@ -78,7 +78,7 @@ public class Player {
     }
 
 
-    // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.
+    // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.///////////////////////
     public void checkBooks(ComputerPlayer P2, String rankOfInterest){
 
         if (hasFour(rankOfInterest)) {
@@ -87,15 +87,8 @@ public class Player {
             hand.trimToSize();
             books = books + 1;
 
-            for (int item = 0; item < P2.memory.size(); item++) {
+            P2.hand.removeIf(card -> card.rank.equals(rankOfInterest));
 
-                if (P2.memory.get(item) == rankOfInterest) {
-
-                    P2.memory.remove(item);
-                    P2.memory.trimToSize();
-                }
-
-            }
         }
     }
 

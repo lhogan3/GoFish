@@ -22,7 +22,7 @@ public class ComputerPlayer extends Player {
 
                 for (int j = 0; j < hand.size(); j++) {
 
-                    if (memory.get(i) == hand.get(j).rank) {
+                    if (memory.get(i).equals(hand.get(j).rank)) {
 
                         System.out.println("Player 2 asks for (from memory) " + memory.get(i));
                         return memory.get(i);
