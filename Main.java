@@ -344,6 +344,8 @@ public class Main {
                         // If we find a card with the requested rank and P2 is not lying...
                         if (P1.hand.get(i).rank.equals(rankAsk)) {
 
+                            P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+
                             // we're not going fishing
                             goFish = false;
 
@@ -406,11 +408,12 @@ public class Main {
                     System.out.println("Player 2 Books: " + P2.books);
 
 
-                    // TODO: Check for cards in P1 hand (using a lot of the same logic as above)
-                    // TODO: Deal with Go FISH, cards changing hands (same as above)
-                    // TODO: Check for end of P2's turn and any new P2 books at end of turn
                     // TODO: Check for end of game after P2's turn, end game - print scores
                     // TODO: Add in recording
+                    // TODO: Clean up 'UI'
+                    // TODO: Make presentation
+                    // TODO: First section of paper
+
 
                 }
 
