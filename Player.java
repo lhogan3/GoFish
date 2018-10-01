@@ -1,19 +1,15 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
-public abstract class Player {
-
-    String type;
-
-    public abstract String getType();
+public class Player {
 
     // players hand
     ArrayList<Card> hand;
 
-    ArrayList<Card> memory;
+    //
+    ArrayList<String> options = new ArrayList<String>();
 
     // amount of sets of 4 the player has
     int books;
@@ -24,114 +20,83 @@ public abstract class Player {
 
     }
 
-    public abstract String ask();
 
-    // cant use lamba expression in a for loop....so this is the best i got
-    public void checkBooks(){
+    // player asks computer for a card
+    public String ask() {
 
-        if (hasFour("1")){
+        // display player's hand
+        System.out.println("---------------YOUR HAND------------------------");
 
-            hand.removeIf(card -> card.rank.equals("1"));
-            hand.trimToSize();
-            books = books + 1;
-        }
+        for (int p = 0; p < hand.size(); p++) {
 
-        if (hasFour("2")){
-
-            hand.removeIf(card -> card.rank.equals("2"));
-            hand.trimToSize();
-            books = books + 1;
+            System.out.println(hand.get(p).rank + " of " + hand.get(p).suit);
 
         }
 
-        if (hasFour("3")){
+        for (int p = 0; p < hand.size(); p++) {
 
-            hand.removeIf(card -> card.rank.equals("3"));
-            hand.trimToSize();
-            books = books + 1;
+            options.add(hand.get(p).rank);
 
         }
 
-        if (hasFour("4")){
 
-            hand.removeIf(card -> card.rank.equals("4"));
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("\n");
+        System.out.println("Ask P2 if they have any ... ?   (q to quit)");
+
+        String rank = scanner.nextLine();
+
+        if (rank.equals("q") || rank.equals("Q")){
+
+            System.out.println("Bye now");
+            System.exit(0);
+        }
+
+        if (options.contains(rank)) {
+
+            return rank;
+
+        } else {
+
+            while (!options.contains(rank)) {
+
+                if (rank.equals("q") || rank.equals("Q")){
+
+                    System.out.println("Bye now");
+                    System.exit(0);
+                }
+                System.out.println("Invalid Rank Entered...\n");
+
+                System.out.println("Ask P2 if they have any ... ?   (q to quit)");
+
+                rank = scanner.nextLine();
+            }
+
+            return rank;
+        }
+    }
+
+
+    // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.
+    public void checkBooks(ComputerPlayer P2, String rankOfInterest){
+
+        if (hasFour(rankOfInterest)) {
+
+            hand.removeIf(card -> card.rank.equals(rankOfInterest));
             hand.trimToSize();
             books = books + 1;
 
+            for (int item = 0; item < P2.memory.size(); item++) {
+
+                if (P2.memory.get(item) == rankOfInterest) {
+
+                    P2.memory.remove(item);
+                    P2.memory.trimToSize();
+                }
+
+            }
         }
-
-        if (hasFour("5")){
-
-            hand.removeIf(card -> card.rank.equals("5"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("6")){
-
-            hand.removeIf(card -> card.rank.equals("6"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("7")){
-
-            hand.removeIf(card -> card.rank.equals("7"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("8")){
-
-            hand.removeIf(card -> card.rank.equals("8"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("9")){
-
-            hand.removeIf(card -> card.rank.equals("9"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("10")){
-
-            hand.removeIf(card -> card.rank.equals("10"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("11")){
-
-            hand.removeIf(card -> card.rank.equals("11"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("12")){
-
-            hand.removeIf(card -> card.rank.equals("12"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
-        if (hasFour("13")){
-
-            hand.removeIf(card -> card.rank.equals("13"));
-            hand.trimToSize();
-            books = books + 1;
-
-        }
-
     }
 
     public boolean hasFour(String rankSeek) {
@@ -159,6 +124,3 @@ public abstract class Player {
 
     }
 }
-
-
-

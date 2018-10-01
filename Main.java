@@ -1,120 +1,11 @@
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import java.util.Random;
-import java.io.*;
 
 public class Main {
 
-
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-
-    public static boolean deckCheck(String rank, Player p1, Player p2, Deck d){
-        boolean goFish = true;
-
-        // TODO: Decide if P2 lying or not
-        // Loop through P2 hands looking for cards of requested rank
-        for (int i = 0; i < p2.hand.size(); i++) {
-
-            // If we find a card with the requested rank...
-            if (p2.hand.get(i).rank.equals(rank)) { //TODO: and not lying
-                // we're not going fishing
-                goFish = false;
-                //need to create a card for for the
-                Card memoryCard = new Card(p2.hand.get(i).rank, p2.hand.get(i).suit);
-                if(p1.getType() == "Computer"){
-                    //need to add the card to the memory arraylist for the computer player
-                    //in the case that the computer is smart
-
-
-                }
-                else if(p2.getType() == "Computer"){
-
-                }
-
-                // Add the card to P1's hand
-                Card cardtoAdd = p2.hand.get(i);
-                System.out.println("You got " + p2.hand.get(i).rank + " of " + p2.hand.get(i).suit);
-                p1.hand.add(cardtoAdd);
-            }
-
-
-        }
-
-        // TODO: If not lying...
-        // Remove all (if any) cards of the requested rank from P2's hand // TODO: Need to make it so we can combine this with above for lie percentage
-        p2.hand.removeIf(card -> card.rank.equals(rank));
-        p2.hand.trimToSize();
-
-        // if we found no cards (or P2 is lying), we FISH!
-        if (goFish) { //TODO: && deck.cards.size != 0
-
-            System.out.println("Player 2 says, GO FISH!");
-
-            // Grab card off top of deck/pool
-            Card draw = d.cards.get(0);
-
-            // Add to P1 hand
-            p1.hand.add(draw);
-
-            // Display what you picked up
-            System.out.println("You got " + draw.rank + " of " + draw.suit + " from the deck!");
-
-            // Remove from deck and resize
-            d.cards.remove(0);
-            d.cards.trimToSize();
-
-            // Check to see if card was what P1 asked for...continue game if yes
-            if (draw.rank.equals(rank)) {
-
-                return true;
-
-            }
-
-            // Else, end current players turn
-            else{
-                return false;
-            }
-        }
-
-    }
-
     public static void main(String[] args) {
-        // create writer to write to file and one to clear file
-        PrintWriter fileRecord = null;
-        PrintWriter newGame = null;
-
-        // create new game printer
-        try {
-            newGame =  new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",false)));
-        } catch (IOException ex) {
-            System.out.println("File does not exist could not clear");
-        }
-
-        // clears file prints new game
-        newGame.append("New Game:");
-        // close file
-        newGame.close();
-
-        // create game recorder
-        try {
-            fileRecord = new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",true)));
-        } catch (IOException ex){
-            System.out.println("File does not exist game will not be recorded");
-        }
-
-
-        System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
 
         // TEST MODE ON / OFF
         boolean test = false;
@@ -137,29 +28,53 @@ public class Main {
 
         }
 
-        // player determines if the computer is smart or not
-        System.out.println("Would you like the computer to be smart (remember all guesses)? (y)");
-        System.out.println("Or not? (n)\n");
-
-        String smart = scanner.nextLine();
-        while (!smart.toLowerCase().equals("y") && !smart.toLowerCase().equals("n")){
-
-            System.out.println("Invalid Response...");
-            System.out.println("Would you like the computer to be smart (remember all guesses)? (y)");
-            System.out.println("Or not? (n)\n");
-
-            smart = scanner.nextLine();
-        }
-        boolean isComputerSmart = false;
-
-        if (smart.toLowerCase().equals("y")){
-            isComputerSmart = true;
-        } else if (smart.toLowerCase().equals("n")){
-            isComputerSmart = false;
-        }
-
         // Start Game!
         if (start.toLowerCase().equals("y")) {
+
+
+            // Get game mode (smart / dumb)
+            System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+            String mode = scanner.nextLine();
+            while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
+
+                System.out.println("Invalid Response...");
+                System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+
+                mode = scanner.nextLine();
+
+            }
+
+            // Get Computer Lie Percentage
+            System.out.println("Computer Lie Percentage? (0-100)");
+
+            while (!scanner.hasNextInt()) {
+                String input = scanner.next();
+                System.out.printf("\"%s\" is not a valid number.\n", input);
+            }
+
+            Integer lie = scanner.nextInt();
+
+            while (lie < 0 || lie > 100) {
+
+                while (!scanner.hasNextInt()) {
+                    String input = scanner.next();
+                    System.out.printf("\"%s\" is not a valid number.\n", input);
+
+                    System.out.println("Invalid Response...");
+                    System.out.println("Computer Lie Percentage? (0-100)");
+
+                    lie = scanner.nextInt();
+
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // Print settings
+            System.out.println("\n");
+            System.out.println("Mode set to: " + mode);
+            System.out.println("Computer Lie Percentage set to: " + lie);
+
 
             // Initialize new deck of cards
 
@@ -184,7 +99,7 @@ public class Main {
             }
 
             // Shuffle the deck
-
+            System.out.println("\n");
             System.out.println("shuffling...");
             Collections.shuffle(deck.cards);
 
@@ -205,8 +120,8 @@ public class Main {
             }
 
             // Initialize Player 1 and Player 2
-            Player P1 = new HumanPlayer();
-            Player P2 = new ComputerPlayer(isComputerSmart);
+            Player P1 = new Player();
+            ComputerPlayer P2 = new ComputerPlayer();
 
 
             System.out.println("dealing...\n");
@@ -235,12 +150,15 @@ public class Main {
                 for (int p = 0; p < P1.hand.size(); p++) {
 
                     System.out.println(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit);
+
                 }
 
                 System.out.println("---------------P2 HAND------------------------\n");
 
                 for (int p = 0; p < P2.hand.size(); p++) {
+
                     System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
+
                 }
             }
 
@@ -258,60 +176,109 @@ public class Main {
             // GAME LOOP //
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // initially turn number 1
-            int turnNumber = 1;
-            while (true) {
-                // print turn number
-                fileRecord.append("Turn number " + turnNumber);
-                // increment turn number
-                turnNumber++;
-                // print to file
-                fileRecord.append("---------------P1 HAND------------------------\n");
 
-                for (int p = 0; p < P1.hand.size(); p++) {
-                    // print to file
-                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-                }
-                // print to file
-                fileRecord.append("---------------P2 HAND------------------------\n");
+            while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
 
-                for (int p = 0; p < P2.hand.size(); p++) {
-                    // print to file
-                    fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-                }
-
-                // Start P1 turn (keep asking until go fish and go fish is not card requested)
+                // Start P1 turn (keep asking until go fish (and go fish is not card requested))
                 boolean P1Turn = true;
-                boolean P2Turn;
-
                 while (P1Turn) {
-                    // Ask Player 1 which rank they would like to ask for
-                    String rankAskP1 = P1.ask();
-                    // print asks to file
-                    fileRecord.append("Player 1 asked Player 2 for: " + rankAskP1 + "\n");
-                    // Gameflow for the rank asked for
-                    P1Turn = deckCheck(rankAskP1, P1, P2, deck);
-                    P2Turn = !P1Turn;
 
-                while(P2Turn){
-                    String rankAskP2 = P2.ask();
-                    // print asks to file
-                    fileRecord.append("Player 2 asked Player 1 for: " + rankAskP2 + "\n");
+                    // Ask Player 1 which rank they would like to ask P2 for
+                    String rankAsk = P1.ask();
 
-                    P2Turn = deckCheck(rankAskP2, P2, P1, deck);
-                    P1Turn = !P2Turn;
-                }
+                    // Add the requested rank to P2's "memory" if it is not already in it
+                    // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
+                    if (!P2.memory.contains(rankAsk)) {
+                        P2.memory.add(rankAsk);
+                    }
 
+                    // Go Fish flag
+                    boolean goFish = true;
+
+                    // Set if P2 should be lying based on lie percentage
+                    boolean compLie;
+
+                    if(new java.util.Random().nextInt(100) < lie){
+                        compLie = true;
+                    }
+                    else{
+                        compLie = false;
+                    }
+
+
+                    // Loop through P2 hands looking for cards of requested rank
+                    for (int i = 0; i < P2.hand.size(); i++) {
+
+                        // If we find a card with the requested rank and P2 is not lying...
+                        if (P2.hand.get(i).rank.equals(rankAsk) && !compLie) {
+
+                            // we're not going fishing
+                            goFish = false;
+
+                            // Add the card to P1's hand
+                            Card cardtoAdd = P2.hand.get(i);
+                            System.out.println("You got " + P2.hand.get(i).rank + " of " + P2.hand.get(i).suit + " from P2!");
+                            P1.hand.add(cardtoAdd);
+                        }
+                    }
+
+                    // Also if P2 not lying, this removes cards from their hand
+                    if (!compLie) {
+                        // Remove all (if any) cards of the requested rank from P2's hand
+                        P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+                        P2.hand.trimToSize();
+                    }
+
+
+                    // if we found no cards (or P2 is lying), we FISH!
+                    if (goFish && deck.cards.size() != 0) {
+
+                        System.out.println("\n");
+                        System.out.println("Player 2 says, GO FISH!");
+
+                        // Grab card off top of deck/pool
+                        Card draw = deck.cards.get(0);
+
+                        // Add to P1 hand
+                        P1.hand.add(draw);
+
+                        System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
+
+
+                        // Remove from deck and resize
+                        deck.cards.remove(0);
+                        deck.cards.trimToSize();
+
+                        // Check to see if card was what P1 asked for...continue game if yes
+                        if (draw.rank.equals(rankAsk)) {
+
+                            P1Turn = true;
+
+                        }
+
+                        // Else, end P1's turn
+                        else{
+
+                            P1Turn = false;
+                        }
+                    }
 
                     // Check for new books!
-                    P1.checkBooks();
 
+                    if (goFish) {
 
-                    // display to console and print to file the books
-                    System.out.println("Player 1 books: " + P1.books);
-                    System.out.println("Player 2 books: " + P2.books);
-                    fileRecord.append("Player 1 books " + P1.books);
-                    fileRecord.append("Player 2 books " + P2.books);
+                        P1.checkBooks(P2, P1.hand.get(P1.hand.size()-1).rank);
+
+                    }
+
+                    else{
+
+                        P1.checkBooks(P2, rankAsk);
+
+                    }
+
+                    System.out.println("\n");
+                    System.out.println("Your Books: " + P1.books);
 
                 }
 
@@ -319,31 +286,41 @@ public class Main {
 
 
                 // TODO: Check to make sure game is not over (check P1 books + P2 books = ?)
+                // I think a break will work here (will break while true game loop
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                System.out.println(P2.memory);
 
                 System.out.println("P2 turn begins...");
 
+                boolean P2Turn = true;
+                while (P2Turn) {
+
+                    System.out.println(P2.determineAsk());
 
 
-                //TODO - P2.turn()
-
-                // TODO: Computer Player (smart and dumb modes)
-                // TODO: Check if game is not over
-                // TODO: Make it loop
-                // TODO: Add lie percentage - (directions say on responses so that's just changing one spot highlighted above)
+                    P2Turn = false;
 
 
-                if (test) {
-                    System.out.println("---------------P2 HAND------------------------\n");
+                    //TODO: P2 will ask P1 for cards using logic:
+                    // Ask for a card that is in memory and in hand else...
+                    // If no cards from memory are in hand - pick a random rank in hand
 
-                    for (int p = 0; p < P2.hand.size(); p++) {
 
-                        System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
 
-                    }
                 }
-                
+
+
+                System.out.println("---------------P2 HAND------------------------\n");
+
+                for (int p = 0; p < P2.hand.size(); p++) {
+
+                    System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
+
+                }
             }
+
         }
 
         // Quit game
