@@ -98,7 +98,7 @@ public class Main {
             }
 
             // Set Computer Mode
-            if (mode.toLowerCase() == "s"){
+            if (mode.toLowerCase().equals("s")){
                 P2.isSmart = true;
             }
             else{
@@ -324,17 +324,86 @@ public class Main {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                System.out.println(P2.memory);
+                System.out.println("Memory : " + P2.memory);
 
                 System.out.println("P2 turn begins...");
 
                 boolean P2Turn = true;
+
                 while (P2Turn) {
 
-                    System.out.println(P2.determineAsk());
+                    String rankAsk = P2.determineAsk();
+
+                    // Go Fish flag
+                    boolean goFish = true;
 
 
-                    P2Turn = false;
+                    // Loop through P1 hands looking for cards of requested rank
+                    for (int i = 0; i < P1.hand.size(); i++) {
+
+                        // If we find a card with the requested rank and P2 is not lying...
+                        if (P1.hand.get(i).rank.equals(rankAsk)) {
+
+                            // we're not going fishing
+                            goFish = false;
+
+                            // Add the card to P2's hand
+                            Card cardtoAdd = P1.hand.get(i);
+                            System.out.println("You gave " + P1.hand.get(i).rank + " of " + P1.hand.get(i).suit + " to P2!");
+                            P2.hand.add(cardtoAdd);
+                        }
+                    }
+
+
+                    P1.hand.removeIf(card -> card.rank.equals(rankAsk));
+                    P1.hand.trimToSize();
+
+                    // if we found no cards, make them FISH!
+                    if (goFish && deck.cards.size() != 0) {
+
+                        System.out.println("\n");
+                        System.out.println("You tell P2 to, GO FISH!");
+
+                        // Grab card off top of deck/pool
+                        Card draw = deck.cards.get(0);
+
+                        // Add to P1 hand
+                        P2.hand.add(draw);
+
+                        // Remove from deck and resize
+                        deck.cards.remove(0);
+                        deck.cards.trimToSize();
+
+                        // Check to see if card was what P2 asked for...continue game if yes
+                        if (draw.rank.equals(rankAsk)) {
+
+                            P2Turn = true;
+
+                        }
+
+                        // Else, end P2's turn
+                        else{
+
+                            P2Turn = false;
+                        }
+                    }
+
+                    // Check for new books!
+
+                    if (goFish) {
+
+                        P2.checkBooks(P2, P2.hand.get(P2.hand.size()-1).rank);
+
+                    }
+
+                    else{
+
+                        P2.checkBooks(P2, rankAsk);
+
+                    }
+
+                    System.out.println("\n");
+                    System.out.println("Player 2 Books: " + P2.books);
 
 
                     // TODO: Check for cards in P1 hand (using a lot of the same logic as above)

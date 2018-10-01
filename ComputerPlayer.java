@@ -24,6 +24,7 @@ public class ComputerPlayer extends Player {
 
                     if (memory.get(i) == hand.get(j).rank) {
 
+                        System.out.println("Player 2 asks for (from memory) " + memory.get(i));
                         return memory.get(i);
                     }
                 }
@@ -36,6 +37,7 @@ public class ComputerPlayer extends Player {
         Random r = new Random();
         int index = r.nextInt(((hand.size()-1) - 0) + 1);
 
+        System.out.println("Player 2 asks for (at random) " + hand.get(index).rank);
         return hand.get(index).rank;
 
     }
