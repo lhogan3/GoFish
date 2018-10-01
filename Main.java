@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -186,6 +190,28 @@ public class Main {
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
+                // create writer to write to file and one to clear file
+                PrintWriter fileRecord = null;
+                PrintWriter newGame = null;
+
+                // create new game printer
+                try {
+                    newGame =  new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",false)));
+                } catch (IOException ex) {
+                    System.out.println("File does not exist could not clear");
+                }
+
+                // clears file prints new game
+                newGame.append("New Game:");
+                // close file
+                newGame.close();
+
+                // create game recorder
+                try {
+                    fileRecord = new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",true)));
+                } catch (IOException ex){
+                    System.out.println("File does not exist game will not be recorded");
+                }
 
                 // Start P1 turn (keep asking until go fish (and go fish is not card requested))
                 boolean P1Turn = true;
