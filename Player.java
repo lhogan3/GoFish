@@ -97,7 +97,7 @@ public class Player {
             hand.trimToSize();
             books = books + 1;
 
-            P2.hand.removeIf(card -> card.rank.equals(rankOfInterest));
+            P2.memory.removeIf(s -> s.equals(rankOfInterest));
 
         }
     }
