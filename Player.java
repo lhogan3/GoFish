@@ -98,6 +98,7 @@ public class Player {
             books = books + 1;
 
             P2.memory.removeIf(s -> s.equals(rankOfInterest));
+            P2.memory.trimToSize();
 
         }
     }

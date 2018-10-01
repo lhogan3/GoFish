@@ -369,6 +369,8 @@ public class Main {
                         if (P1.hand.get(i).rank.equals(rankAsk)) {
 
                             P2.memory.removeIf(m -> m.equals(rankAsk));
+                            P2.memory.trimToSize();
+
 
                             // we're not going fishing
                             goFish = false;
