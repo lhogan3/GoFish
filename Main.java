@@ -217,7 +217,7 @@ public class Main {
                 boolean P1Turn = true;
                 while (P1Turn) {
 
-                    String rankAsk;
+                    String rankAsk1;
 
                     if (P1.hand.size() == 0){
 
@@ -234,20 +234,20 @@ public class Main {
                         System.out.println("You ran out of cards, you went fishing...");
                         System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
 
-                        rankAsk = draw.rank;
+                        rankAsk1 = draw.rank;
 
                     }
 
 
                     else {
                         // Ask Player 1 which rank they would like to ask P2 for
-                        rankAsk = P1.ask();
+                        rankAsk1 = P1.ask();
                     }
 
                     // Add the requested rank to P2's "memory" if it is not already in it
                     // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
-                    if (P2.isSmart && !P2.memory.contains(rankAsk)) {
-                        P2.memory.add(rankAsk);
+                    if (P2.isSmart && !P2.memory.contains(rankAsk1)) {
+                        P2.memory.add(rankAsk1);
                     }
 
                     // Go Fish flag
@@ -268,7 +268,7 @@ public class Main {
                     for (int i = 0; i < P2.hand.size(); i++) {
 
                         // If we find a card with the requested rank and P2 is not lying...
-                        if (P2.hand.get(i).rank.equals(rankAsk) && !compLie) {
+                        if (P2.hand.get(i).rank.equals(rankAsk1) && !compLie) {
 
                             // we're not going fishing
                             goFish = false;
@@ -283,7 +283,7 @@ public class Main {
                     // Also if P2 not lying, this removes cards from their hand
                     if (!compLie) {
                         // Remove all (if any) cards of the requested rank from P2's hand
-                        P2.hand.removeIf(card -> card.rank.equals(rankAsk));
+                        P2.hand.removeIf(card -> card.rank.equals(rankAsk1));
                         P2.hand.trimToSize();
                     }
 
@@ -308,7 +308,7 @@ public class Main {
                         deck.cards.trimToSize();
 
                         // Check to see if card was what P1 asked for...continue game if yes
-                        if (draw.rank.equals(rankAsk)) {
+                        if (draw.rank.equals(rankAsk1)) {
 
                             P1Turn = true;
 
@@ -331,7 +331,7 @@ public class Main {
 
                     else{
 
-                        P1.checkBooks(P2, rankAsk);
+                        P1.checkBooks(P2, rankAsk1);
 
                     }
 
@@ -354,10 +354,35 @@ public class Main {
 
                 boolean P2Turn = true;
 
+                String rankAsk2Temp;
+
+
                 while (P2Turn) {
 
-                    String rankAsk = P2.determineAsk();
+                    if (P2.hand.size() == 0){
 
+                        // Grab card off top of deck/pool
+                        Card draw = deck.cards.get(0);
+
+                        // Add to P1 hand
+                        P2.hand.add(draw);
+
+                        // Remove from deck and resize
+                        deck.cards.remove(0);
+                        deck.cards.trimToSize();
+
+                        System.out.println("P2 ran out of cards and went fishing...");
+
+                        rankAsk2Temp = draw.rank;
+
+                    }
+
+                    else {
+
+                        rankAsk2Temp = P2.determineAsk();
+
+                    }
+                    String rankAsk2 = rankAsk2Temp;
                     // Go Fish flag
                     boolean goFish = true;
 
@@ -366,9 +391,9 @@ public class Main {
                     for (int i = 0; i < P1.hand.size(); i++) {
 
                         // If we find a card with the requested rank and P2 is not lying...
-                        if (P1.hand.get(i).rank.equals(rankAsk)) {
+                        if (P1.hand.get(i).rank.equals(rankAsk2)) {
 
-                            P2.memory.removeIf(m -> m.equals(rankAsk));
+                            P2.memory.removeIf(m -> m.equals(rankAsk2));
                             P2.memory.trimToSize();
 
 
@@ -383,7 +408,7 @@ public class Main {
                     }
 
 
-                    P1.hand.removeIf(card -> card.rank.equals(rankAsk));
+                    P1.hand.removeIf(card -> card.rank.equals(rankAsk2));
                     P1.hand.trimToSize();
 
                     // if we found no cards, make them FISH!
@@ -403,7 +428,7 @@ public class Main {
                         deck.cards.trimToSize();
 
                         // Check to see if card was what P2 asked for...continue game if yes
-                        if (draw.rank.equals(rankAsk)) {
+                        if (draw.rank.equals(rankAsk2)) {
 
                             P2Turn = true;
 
@@ -426,7 +451,7 @@ public class Main {
 
                     else{
 
-                        P2.checkBooks(P2, rankAsk);
+                        P2.checkBooks(P2, rankAsk2);
 
                     }
 
