@@ -189,29 +189,54 @@ public class Main {
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+            // new game to start file over
+            PrintWriter newGame = null;
+
+            // create new game printer
+            try {
+                newGame =  new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",false)));
+            } catch (IOException ex) {
+                System.out.println("File does not exist could not clear");
+            }
+
+            // clears file prints new game
+            newGame.append("New Game:\n");
+            // close file
+            newGame.close();
+
+            int turnCounter = 0;
+
             while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
-                // create writer to write to file and one to clear file
+                turnCounter++;
+                // create writer to write to file
                 PrintWriter fileRecord = null;
-                PrintWriter newGame = null;
-
-                // create new game printer
-                try {
-                    newGame =  new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",false)));
-                } catch (IOException ex) {
-                    System.out.println("File does not exist could not clear");
-                }
-
-                // clears file prints new game
-                newGame.append("New Game:");
-                // close file
-                newGame.close();
-
                 // create game recorder
                 try {
                     fileRecord = new PrintWriter(new BufferedWriter(new FileWriter("goFishRecord.txt",true)));
                 } catch (IOException ex){
                     System.out.println("File does not exist game will not be recorded");
                 }
+
+                // turn number
+                fileRecord.append("Turn number: " + turnCounter + "\n");
+                // print hands to file
+                fileRecord.append("---------------Player 1 HAND------------------------\n");
+
+                for (int p = 0; p < P1.hand.size(); p++) {
+
+                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
+
+                }
+
+                fileRecord.append("---------------Player 2 HAND------------------------\n");
+
+                for (int p = 0; p < P2.hand.size(); p++) {
+
+                    fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
+
+                }
+
+                fileRecord.close();
 
                 // Start P1 turn (keep asking until go fish (and go fish is not card requested))
                 boolean P1Turn = true;
