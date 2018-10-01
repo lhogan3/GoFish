@@ -32,50 +32,6 @@ public class Main {
         if (start.toLowerCase().equals("y")) {
 
 
-            // Get game mode (smart / dumb)
-            System.out.println("Smart (s) or Dumb (d) Computer Mode?");
-            String mode = scanner.nextLine();
-            while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
-
-                System.out.println("Invalid Response...");
-                System.out.println("Smart (s) or Dumb (d) Computer Mode?");
-
-                mode = scanner.nextLine();
-
-            }
-
-            // Get Computer Lie Percentage
-            System.out.println("Computer Lie Percentage? (0-100)");
-
-            while (!scanner.hasNextInt()) {
-                String input = scanner.next();
-                System.out.printf("\"%s\" is not a valid number.\n", input);
-            }
-
-            Integer lie = scanner.nextInt();
-
-            while (lie < 0 || lie > 100) {
-
-                while (!scanner.hasNextInt()) {
-                    String input = scanner.next();
-                    System.out.printf("\"%s\" is not a valid number.\n", input);
-
-                    System.out.println("Invalid Response...");
-                    System.out.println("Computer Lie Percentage? (0-100)");
-
-                    lie = scanner.nextInt();
-
-                }
-            }
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            // Print settings
-            System.out.println("\n");
-            System.out.println("Mode set to: " + mode);
-            System.out.println("Computer Lie Percentage set to: " + lie);
-
-
             // Initialize new deck of cards
 
             Deck deck = new Deck();
@@ -122,6 +78,58 @@ public class Main {
             // Initialize Player 1 and Player 2
             Player P1 = new Player();
             ComputerPlayer P2 = new ComputerPlayer();
+
+
+            // Get game mode (smart / dumb)
+            System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+            String mode = scanner.nextLine();
+
+            while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
+
+                System.out.println("Invalid Response...");
+                System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+
+                mode = scanner.nextLine();
+
+            }
+
+            // Set Computer Mode
+            if (mode.toLowerCase() == "s"){
+                P2.isSmart = true;
+            }
+            else{
+                P2.isSmart = false;
+            }
+
+            // Get Computer Lie Percentage
+            System.out.println("Computer Lie Percentage? (0-100)");
+
+            while (!scanner.hasNextInt()) {
+                String input = scanner.next();
+                System.out.printf("\"%s\" is not a valid number.\n", input);
+            }
+
+            Integer lie = scanner.nextInt();
+
+            while (lie < 0 || lie > 100) {
+
+                while (!scanner.hasNextInt()) {
+                    String input = scanner.next();
+                    System.out.printf("\"%s\" is not a valid number.\n", input);
+
+                    System.out.println("Invalid Response...");
+                    System.out.println("Computer Lie Percentage? (0-100)");
+
+                    lie = scanner.nextInt();
+
+                }
+            }
+
+            // Print settings
+            System.out.println("\n");
+            System.out.println("Mode set to: " + mode);
+            System.out.println("Computer Lie Percentage set to: " + lie);
+
 
 
             System.out.println("dealing...\n");
@@ -188,7 +196,7 @@ public class Main {
 
                     // Add the requested rank to P2's "memory" if it is not already in it
                     // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
-                    if (!P2.memory.contains(rankAsk)) {
+                    if (P2.isSmart && !P2.memory.contains(rankAsk)) {
                         P2.memory.add(rankAsk);
                     }
 
@@ -303,10 +311,7 @@ public class Main {
                     P2Turn = false;
 
 
-                    //TODO: P2 will ask P1 for cards using logic:
-                    // Ask for a card that is in memory and in hand else...
-                    // If no cards from memory are in hand - pick a random rank in hand
-
+                    // TODO: Check for cards
 
 
                 }

@@ -66,7 +66,7 @@ public class Player {
                     System.out.println("Bye now");
                     System.exit(0);
                 }
-                System.out.println("Invalid Rank Entered...\n");
+                System.out.println("Invalid Rank Entered / You do not have that rank...\n");
 
                 System.out.println("Ask P2 if they have any ... ?   (q to quit)");
 
