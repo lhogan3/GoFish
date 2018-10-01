@@ -1,19 +1,22 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
+//Defining the Player class.
 public class Player {
 
-    // players hand
+    // A player has a hand, and it is defined as an ArrayList
+    // of Card objects.
     ArrayList<Card> hand;
 
-    //
+    // Options of things the human player can ask for.
+    // Don't want them asking for cards they don't have
+    // in their hand.
     ArrayList<String> options = new ArrayList<String>();
 
-    // amount of sets of 4 the player has
+    // Number of books the Player has.
     int books;
 
+    // Player constructor giving the Player a hand.
     Player(){
 
         hand = new ArrayList<Card>();
@@ -21,10 +24,10 @@ public class Player {
     }
 
 
-    // player asks computer for a card
+    // Method for when the Player asks the Computer for a card.
     public String ask() {
 
-        // display player's hand
+        // Displays the Player's hand.
         System.out.println("---------------YOUR HAND------------------------");
 
         for (int p = 0; p < hand.size(); p++) {
@@ -41,7 +44,7 @@ public class Player {
 
         }
 
-
+        // Have the Player enter the card they want to ask.
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n");
@@ -49,17 +52,22 @@ public class Player {
 
         String rank = scanner.nextLine();
 
+        // Quit the game if the Player enters q or Q at any time during the game.
         if (rank.equals("q") || rank.equals("Q")){
 
             System.out.println("Bye now");
             System.exit(0);
         }
 
+        // If the rank asked for is in the player's hand then proceed.
         if (options.contains(rank)) {
 
             return rank;
 
-        } else {
+        }
+
+        // If the card asked for is not in the Player's hand, then don't let them ask for this card.
+        else {
 
             while (!options.contains(rank)) {
 
@@ -80,7 +88,7 @@ public class Player {
     }
 
 
-    // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.///////////////////////
+    // check either requested rank (if P1 recieved cards) or the card that was draw from GO FISH.
     public void checkBooks(ComputerPlayer P2, String rankOfInterest){
 
         if (hasFour(rankOfInterest)) {

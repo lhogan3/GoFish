@@ -1,47 +1,22 @@
-import java.util.Comparator;
 
-public class Card{
+//Defining the Card Class
 
-    // ace,2,3,etc.
+public class Card {
+
+    // This attribute is for the rank of the card.
+    // (i.e 2,3,4,ace... etc.)
     String rank;
 
-    // heart,diamond,spade,club
+    // This attribute is for the suite of the card.
+    // (i.e heart, diamond, spade, or club)
     String suit;
 
-
-    Card(String rank, String suit){
+    //Constructor for the Card Class giving it a rank and a suit.
+    Card(String rank, String suit) {
 
         this.rank = rank;
         this.suit = suit;
 
 
-    }
-
-
-//    public int compare(Card one, Card two){
-//
-//        int oneRank = Integer.parseInt(one.rank);
-//        int twoRank = Integer.parseInt(two.rank);
-//        int returnVal = 0;
-//
-//        if(oneRank < twoRank){
-//            returnVal =  -1;
-//        }else if(oneRank > twoRank){
-//            returnVal =  1;
-//        }else if(oneRank == twoRank){
-//            returnVal =  0;
-//        }
-//        return returnVal;
-//    }
-
-
-    public int compareTo(Card card)
-    {
-
-        int oneRank = Integer.parseInt(this.rank);
-        int twoRank = Integer.parseInt(card.rank);
-
-
-        return(oneRank - twoRank);
     }
 }
