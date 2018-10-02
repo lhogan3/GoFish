@@ -103,6 +103,7 @@ public class Player {
         }
     }
 
+    //Chekck to see if the Player's hand has four of a rank entered and returns a boolean.
     public boolean hasFour(String rankSeek) {
 
         int sum = 0;

@@ -5,11 +5,24 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        //Unicode values for colors and reset.
+        String RESET = "\u001B[0m";
+        String BLACK = "\u001B[30m";
+        String RED = "\u001B[31m";
+
+        // Unicode Values for suits. Can combine them with colors so have
+        // diamonds and hearts be red.
+        String heart = "\u2665";
+        String diamond = "\u2666";
+        String spade = "\u2660";
+        String club = "\u2663";
 
         // TEST MODE ON / OFF
         boolean test = false;
@@ -17,16 +30,18 @@ public class Main {
         // Ask to Start Game
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Start New Game? (y)");
-        System.out.println("Quit? (n)\n");
+
+        System.out.println("-----Welcome to Go Fish!-----");
+        System.out.println("-----Start New Game? (y)-----");
+        System.out.println("-----Quit? (n)-----\n");
 
         String start = scanner.nextLine();
 
         while (!start.toLowerCase().equals("y") && !start.toLowerCase().equals("n")){
 
-            System.out.println("Invalid Response...");
-            System.out.println("Start New Game? (y)");
-            System.out.println("Quit? (n)\n");
+            System.out.println("-----Invalid Response...-----");
+            System.out.println("-----Start New Game? (y)-----");
+            System.out.println("-----Quit? (n)-----\n");
 
             start = scanner.nextLine();
 
@@ -43,41 +58,41 @@ public class Main {
             // Note: in IntelliJ, to hide the blocks of code for testing (which we can get rid of soon), click the if statement and
             // do ctrl-shift-period / command-shift-period
 
-            // FOR TESTING
-            if (test) {
-
-                System.out.println("\n");
-
-                System.out.println("---------------FULL DECK CARDS------------------------\n");
-
-                for (int p = 0; p < deck.cards.size(); p++) {
-
-                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
-
-                }
-
-            }
+//            // FOR TESTING
+//            if (test) {
+//
+//                System.out.println("\n");
+//
+//                System.out.println("---------------FULL DECK CARDS------------------------\n");
+//
+//                for (int p = 0; p < deck.cards.size(); p++) {
+//
+//                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
+//
+//                }
+//
+//            }
 
             // Shuffle the deck
             System.out.println("\n");
-            System.out.println("shuffling...");
+            System.out.println("-----Shuffling the Deck...-----");
             Collections.shuffle(deck.cards);
 
 
-            // FOR TESTING
-            if (test) {
-
-                System.out.println("\n");
-
-                System.out.println("---------------SHUFFLED FULL DECK------------------------\n");
-
-                for (int p = 0; p < deck.cards.size(); p++) {
-
-                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
-
-                }
-
-            }
+//            // FOR TESTING
+//            if (test) {
+//
+//                System.out.println("\n");
+//
+//                System.out.println("---------------SHUFFLED FULL DECK------------------------\n");
+//
+//                for (int p = 0; p < deck.cards.size(); p++) {
+//
+//                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
+//
+//                }
+//
+//            }
 
             // Initialize Player 1 and Player 2
             Player P1 = new Player();
@@ -85,12 +100,13 @@ public class Main {
 
 
             // Get game mode (smart / dumb)
-            System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+            System.out.println("-----Would you like to play against a smart or dumb Computer?\n-----" +
+                    "Smart (s) or Dumb (d)?");
             String mode = scanner.nextLine();
 
             while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
 
-                System.out.println("Invalid Response...");
+                System.out.println("Invalid Response...-----");
                 System.out.println("Smart (s) or Dumb (d) Computer Mode?");
 
                 mode = scanner.nextLine();
@@ -106,7 +122,7 @@ public class Main {
             }
 
             // Get Computer Lie Percentage
-            System.out.println("Computer Lie Percentage? (0-100)");
+            System.out.println("What would you like the Computer Lie Percentage to be? (0-100)");
 
             while (!scanner.hasNextInt()) {
                 String input = scanner.next();
@@ -136,7 +152,7 @@ public class Main {
 
 
 
-            System.out.println("dealing...\n");
+            System.out.println("Dealing out the cards now...\n");
             // Deal 7 cards to P1's hand, remove cards from deck, update deck size
             for (int i = 0; i < 7; i++) {
                 P1.hand.add(deck.cards.get(i));
@@ -151,36 +167,41 @@ public class Main {
 
             // Adjust deck size after dealing
             deck.cards.trimToSize();
+            Collections.sort(P1.hand, Collections.reverseOrder());
 
-            // FOR TESTING
-            if (test) {
-
-                System.out.println("\n");
-
-                System.out.println("---------------P1 HAND------------------------\n");
-
-                for (int p = 0; p < P1.hand.size(); p++) {
-
-                    System.out.println(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit);
-
-                }
-
-                System.out.println("---------------P2 HAND------------------------\n");
-
-                for (int p = 0; p < P2.hand.size(); p++) {
-
-                    System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
-
-                }
-            }
+//            // FOR TESTING
+//            if (test) {
+//
+//                System.out.println("\n");
+//
+//                System.out.println("---------------P1 HAND------------------------\n");
+//
+//                for (int p = 0; p < P1.hand.size(); p++) {
+//
+//                    System.out.println(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit);
+//
+//                }
+//
+//                System.out.println("---------------P2 HAND------------------------\n");
+//
+//                for (int p = 0; p < P2.hand.size(); p++) {
+//
+//                    System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
+//
+//                }
+//            }
 
             // Rank Selection Menu
             System.out.println("\n");
-            System.out.println("Rank selection menu:");
-            System.out.println("2   3   4   5   6");
-            System.out.println("7     8    9    10");
-            System.out.println("Jack - 11    Queen - 12");
-            System.out.println("King - 13   Ace - 1\n");
+            System.out.println("-----Rank selection menu-----");
+            System.out.println("     2   3   4   5   6");
+            System.out.println("     7   8   9   10");
+            System.out.println("     Jack - 11    Queen - 12");
+            System.out.println("     King - 13   Ace - 1\n");
+            System.out.println("\nClubs - " + club);
+            System.out.println("Spades - " + spade);
+            System.out.println("Hearts - " + RED + heart + RESET);
+            System.out.println("Diamonds - " + RED + diamond + RESET);
 
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
