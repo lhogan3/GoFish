@@ -52,7 +52,6 @@ public class Main {
 
             // Shuffle the deck
             System.out.println("\n");
-            System.out.println("----- Shuffling the Deck... -----");
             Collections.shuffle(deck.cards);
 
             // Initialize Player 1 and Player 2
@@ -385,8 +384,6 @@ public class Main {
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                System.out.println("Memory : " + P2.memory);
 
                 System.out.println("P2 turn begins...");
 
