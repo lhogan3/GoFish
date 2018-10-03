@@ -30,7 +30,7 @@ public class Main {
 
         System.out.println("----- Welcome to Go Fish! -----");
         System.out.println("----- Start New Game? (y) -----");
-        System.out.println("----- Quit? (n) -----\n");
+        System.out.println("----- Quit? (n) -----");
 
         String start = scanner.nextLine();
 
@@ -38,7 +38,7 @@ public class Main {
 
             System.out.println("----- Invalid Response... -----");
             System.out.println("----- Start New Game? (y) -----");
-            System.out.println("----- Quit? (n) -----\n");
+            System.out.println("----- Quit? (n) -----");
 
             start = scanner.nextLine();
 
@@ -51,7 +51,6 @@ public class Main {
             Deck deck = new Deck();
 
             // Shuffle the deck
-            System.out.println("\n");
             Collections.shuffle(deck.cards);
 
             // Initialize Player 1 and Player 2
@@ -59,14 +58,14 @@ public class Main {
             ComputerPlayer P2 = new ComputerPlayer();
 
             // Get game mode (smart / dumb)
-            System.out.println("----- Would you like to play against a smart or dumb Computer? \n-----" +
-                    "Smart (s) or Dumb (d)?");
+            System.out.println("----- Would you like to play against a smart or dumb Computer? -----");
+            System.out.println("----- Smart (s) or Dumb (d)? -----");
             String mode = scanner.nextLine();
 
             while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
 
-                System.out.println("Invalid Response...");
-                System.out.println("Smart (s) or Dumb (d) Computer Mode?");
+                System.out.println("----- Invalid Response... -----");
+                System.out.println("----- Smart (s) or Dumb (d) Computer Mode? -----");
 
                 mode = scanner.nextLine();
 
@@ -75,9 +74,11 @@ public class Main {
             // Set Computer Mode
             if (mode.toLowerCase().equals("s")){
                 P2.isSmart = true;
+                mode = "Smart";
             }
             else{
                 P2.isSmart = false;
+                mode = "Dumb";
             }
 
             // Get Computer Lie Percentage
@@ -105,10 +106,9 @@ public class Main {
             }
 
             // Print settings
-            System.out.println("\n");
-            System.out.println("Mode set to: " + mode + "\n");
-            System.out.println("\n");
-            System.out.println("Computer Lie Percentage set to: " + lie);
+            System.out.println("Your settings:");
+            System.out.println("Computer mode set to: " + mode);
+            System.out.println("Computer Lie Percentage set to: " + lie + "%");
 
 
 
@@ -125,22 +125,21 @@ public class Main {
                 deck.cards.remove(i);
             }
 
-            System.out.println("Dealing out the cards now...\n");
+            System.out.println("Dealing out the cards now...");
 
             // Adjust deck size after dealing
             deck.cards.trimToSize();
             Collections.sort(P1.hand);
 
             // Rank Selection Menu
-            System.out.println("\n");
             System.out.println("----- Rank selection menu -----");
             System.out.println("     2   3   4   5   6");
             System.out.println("     7   8   9   10");
             System.out.println("     Jack - 11    Queen - 12");
-            System.out.println("     King - 13   Ace - 1\n");
+            System.out.println("     King - 13   Ace - 1");
 
             System.out.println("----- Suits key -----");
-            System.out.println("\nClubs - " + club);
+            System.out.println("Clubs - " + club);
             System.out.println("Spades - " + spade);
             System.out.println("Hearts - " + RED + heart + RESET);
             System.out.println("Diamonds - " + RED + diamond + RESET);
