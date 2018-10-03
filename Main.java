@@ -44,57 +44,20 @@ public class Main {
 
         }
 
-        // Start Game!
+        // Start Game if "y"
         if (start.toLowerCase().equals("y")) {
 
-
             // Initialize new deck of cards
-
             Deck deck = new Deck();
-
-            // Note: in IntelliJ, to hide the blocks of code for testing (which we can get rid of soon), click the if statement and
-            // do ctrl-shift-period / command-shift-period
-
-//            // FOR TESTING
-//            if (test) {
-//
-//                System.out.println("\n");
-//
-//                System.out.println("---------------FULL DECK CARDS------------------------\n");
-//
-//                for (int p = 0; p < deck.cards.size(); p++) {
-//
-//                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
-//
-//                }
-//
-//            }
 
             // Shuffle the deck
             System.out.println("\n");
             System.out.println("----- Shuffling the Deck... -----");
             Collections.shuffle(deck.cards);
 
-
-//            // FOR TESTING
-//            if (test) {
-//
-//                System.out.println("\n");
-//
-//                System.out.println("---------------SHUFFLED FULL DECK------------------------\n");
-//
-//                for (int p = 0; p < deck.cards.size(); p++) {
-//
-//                    System.out.println(deck.cards.get(p).rank + " of " + deck.cards.get(p).suit);
-//
-//                }
-//
-//            }
-
             // Initialize Player 1 and Player 2
             Player P1 = new Player();
             ComputerPlayer P2 = new ComputerPlayer();
-
 
             // Get game mode (smart / dumb)
             System.out.println("----- Would you like to play against a smart or dumb Computer? \n-----" +
@@ -145,12 +108,13 @@ public class Main {
             // Print settings
             System.out.println("\n");
             System.out.println("Mode set to: " + mode + "\n");
+            System.out.println("\n");
             System.out.println("Computer Lie Percentage set to: " + lie);
 
 
 
-            System.out.println("Dealing out the cards now...\n");
             // Deal 7 cards to P1's hand, remove cards from deck, update deck size
+
             for (int i = 0; i < 7; i++) {
                 P1.hand.add(deck.cards.get(i));
                 deck.cards.remove(i);
@@ -162,31 +126,11 @@ public class Main {
                 deck.cards.remove(i);
             }
 
+            System.out.println("Dealing out the cards now...\n");
+
             // Adjust deck size after dealing
             deck.cards.trimToSize();
             Collections.sort(P1.hand);
-
-//            // FOR TESTING
-//            if (test) {
-//
-//                System.out.println("\n");
-//
-//                System.out.println("---------------P1 HAND------------------------\n");
-//
-//                for (int p = 0; p < P1.hand.size(); p++) {
-//
-//                    System.out.println(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit);
-//
-//                }
-//
-//                System.out.println("---------------P2 HAND------------------------\n");
-//
-//                for (int p = 0; p < P2.hand.size(); p++) {
-//
-//                    System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
-//
-//                }
-//            }
 
             // Rank Selection Menu
             System.out.println("\n");
@@ -195,16 +139,13 @@ public class Main {
             System.out.println("     7   8   9   10");
             System.out.println("     Jack - 11    Queen - 12");
             System.out.println("     King - 13   Ace - 1\n");
+
+            System.out.println("----- Suits key -----");
             System.out.println("\nClubs - " + club);
             System.out.println("Spades - " + spade);
             System.out.println("Hearts - " + RED + heart + RESET);
             System.out.println("Diamonds - " + RED + diamond + RESET);
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            // GAME LOOP //
-
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             // new game to start file over
             PrintWriter newGame = null;
@@ -223,7 +164,18 @@ public class Main {
 
             int turnCounter = 0;
 
-            while (true) {  // there are no cards in deck and no cards in hands ends game TEST COMMIT
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            // START GAME LOOP //
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            boolean game = true;
+
+            // there are no cards in deck and no cards in hands ends game
+            while (game) {
+
                 turnCounter++;
                 // create writer to write to file
                 PrintWriter fileRecord = null;
@@ -259,7 +211,8 @@ public class Main {
                 }
 
 
-                // Start P1 turn (keep asking until go fish (and go fish is not card requested))
+                //////////////////// Start P1 turn (keep asking until go fish (and go fish is not card requested))//////////////////////
+
                 boolean P1Turn = true;
                 while (P1Turn) {
 
@@ -372,7 +325,6 @@ public class Main {
 
                         System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
 
-
                         // Remove from deck and resize
                         deck.cards.remove(0);
                         deck.cards.trimToSize();
@@ -416,14 +368,21 @@ public class Main {
                     System.out.println("\n");
                     System.out.println("Your Books: " + P1.books);
 
+                    if (P1.books + P2.books == 13){
+
+                        System.out.println("\nGame Over!");
+                        System.out.println("You: "  + P1.books);
+                        System.out.println("Computer: "  + P2.books);
+                        break;
+
+                    }
+
 
                 }
 
 
 
 
-                // TODO: Check to make sure game is not over (check P1 books + P2 books = ?)
-                // I think a break will work here (will break while true game loop
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -438,7 +397,7 @@ public class Main {
 
                 while (P2Turn) {
 
-                    if (P2.hand.size() == 0){
+                    if (P2.hand.size() == 0 && deck.cards.size() != 0){
 
                         // Grab card off top of deck/pool
                         Card draw = deck.cards.get(0);
@@ -453,6 +412,9 @@ public class Main {
                         System.out.println("P2 ran out of cards and went fishing...");
 
                         rankAsk2Temp = draw.rank;
+
+                        System.out.println("P2 asks for " + rankAsk2Temp);
+
 
                         fileRecord.append("Player 2 had no cards so they had to draw from the deck\n");
                         fileRecord.append("---------------Player 2 HAND------------------------\n");
@@ -470,6 +432,7 @@ public class Main {
                         rankAsk2Temp = P2.determineAsk();
 
                     }
+
                     String rankAsk2 = rankAsk2Temp;
                     // put in file what computer asked for and then player 1 and 2 hand
                     fileRecord.append("Player 2 asked for " + rankAsk2 + "\n");
@@ -562,17 +525,24 @@ public class Main {
                     System.out.println("\n");
                     System.out.println("Player 2 Books: " + P2.books);
 
+                    if (P1.books + P2.books == 13){
 
-                    // TODO: Check for end of game after P2's turn, end game - print scores
-                    // TODO: Add in recording
-                    // TODO: Clean up 'UI'
-                    // TODO: Make presentation
-                    // TODO: First section of paper
+                        System.out.println("\nGame Over!");
+                        System.out.println("You: "  + P1.books);
+                        System.out.println("Computer: "  + P2.books);
+                        game = false;
+                        break;
+
+                    }
+
 
 
                 }
+
                 
                 fileRecord.close();
+
+
             }
 
         }

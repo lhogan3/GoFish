@@ -35,7 +35,7 @@ public class ComputerPlayer extends Player {
         // If computer is dumb OR we did not find any cards in memory that were also in hand...we ask for a random card from hand
 
         Random r = new Random();
-        int index = r.nextInt(((hand.size()-1) - 0) + 1);
+        int index = r.nextInt((hand.size()-1) + 1);
 
         System.out.println("Player 2 asks for (at random) " + hand.get(index).rank);
         return hand.get(index).rank;
