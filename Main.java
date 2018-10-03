@@ -185,7 +185,7 @@ public class Main {
                 }
 
                 // turn number
-                fileRecord.append("Turn number: " + turnCounter + "\n");
+                fileRecord.append("----- Turn number: " + turnCounter + " -----\n");
 
                 // print books to file
                 fileRecord.append("Player 1 books: " + P1.books + "\n");
@@ -213,6 +213,9 @@ public class Main {
 
                 boolean P1Turn = true;
                 while (P1Turn) {
+                    Collections.sort(P1.hand);
+                    System.out.println("Your Books: " + P1.books);
+                    System.out.println("Player 2 Books: " + P2.books);
 
                     String rankAsk1;
 
@@ -312,7 +315,6 @@ public class Main {
                     // if we found no cards (or P2 is lying), we FISH!
                     if (goFish && deck.cards.size() != 0) {
 
-                        System.out.println("\n");
                         System.out.println("Player 2 says, GO FISH!");
 
                         // Grab card off top of deck/pool
@@ -357,9 +359,6 @@ public class Main {
                     else{
                         P1.checkBooks(P2, rankAsk1);
                     }
-
-                    System.out.println("\n");
-                    System.out.println("Your Books: " + P1.books);
 
                     if (P1.books + P2.books == 13){
 
@@ -449,7 +448,6 @@ public class Main {
                     // if we found no cards, make them FISH!
                     if (goFish && deck.cards.size() != 0) {
 
-                        System.out.println("\n");
                         System.out.println("You tell P2 to, GO FISH!");
 
                         // Grab card off top of deck/pool
@@ -489,9 +487,6 @@ public class Main {
                         P2.checkBooks(P2, rankAsk2);
 
                     }
-
-                    System.out.println("\n");
-                    System.out.println("Player 2 Books: " + P2.books);
 
                     if (P1.books + P2.books == 13){
 
