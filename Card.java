@@ -12,6 +12,9 @@ public class Card implements Comparable<Card> {
     String suit;
 
 
+    public String getRank() {
+        return rank;
+    }
 
     //Constructor for the Card Class giving it a rank and a suit.
     Card(String rank, String suit) {
@@ -23,6 +26,10 @@ public class Card implements Comparable<Card> {
 
     @Override
     public int compareTo(Card c) {
-        return this.rank.compareTo(c.rank);
+        int comCard = Integer.parseInt(c.getRank());
+
+        int intRank = Integer.parseInt(this.rank);
+
+        return intRank-comCard;
     }
 }

@@ -2,10 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -31,17 +28,17 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
 
-        System.out.println("-----Welcome to Go Fish!-----");
-        System.out.println("-----Start New Game? (y)-----");
-        System.out.println("-----Quit? (n)-----\n");
+        System.out.println("----- Welcome to Go Fish! -----");
+        System.out.println("----- Start New Game? (y) -----");
+        System.out.println("----- Quit? (n) -----\n");
 
         String start = scanner.nextLine();
 
         while (!start.toLowerCase().equals("y") && !start.toLowerCase().equals("n")){
 
-            System.out.println("-----Invalid Response...-----");
-            System.out.println("-----Start New Game? (y)-----");
-            System.out.println("-----Quit? (n)-----\n");
+            System.out.println("----- Invalid Response... -----");
+            System.out.println("----- Start New Game? (y) -----");
+            System.out.println("----- Quit? (n) -----\n");
 
             start = scanner.nextLine();
 
@@ -75,7 +72,7 @@ public class Main {
 
             // Shuffle the deck
             System.out.println("\n");
-            System.out.println("-----Shuffling the Deck...-----");
+            System.out.println("----- Shuffling the Deck... -----");
             Collections.shuffle(deck.cards);
 
 
@@ -100,13 +97,13 @@ public class Main {
 
 
             // Get game mode (smart / dumb)
-            System.out.println("-----Would you like to play against a smart or dumb Computer?\n-----" +
+            System.out.println("----- Would you like to play against a smart or dumb Computer? \n-----" +
                     "Smart (s) or Dumb (d)?");
             String mode = scanner.nextLine();
 
             while (!mode.toLowerCase().equals("s") && !mode.toLowerCase().equals("d")){
 
-                System.out.println("Invalid Response...-----");
+                System.out.println("Invalid Response...");
                 System.out.println("Smart (s) or Dumb (d) Computer Mode?");
 
                 mode = scanner.nextLine();
@@ -122,7 +119,7 @@ public class Main {
             }
 
             // Get Computer Lie Percentage
-            System.out.println("What would you like the Computer Lie Percentage to be? (0-100)");
+            System.out.println("----- What would you like the Computer Lie Percentage to be? (0-100) -----");
 
             while (!scanner.hasNextInt()) {
                 String input = scanner.next();
@@ -147,7 +144,7 @@ public class Main {
 
             // Print settings
             System.out.println("\n");
-            System.out.println("Mode set to: " + mode);
+            System.out.println("Mode set to: " + mode + "\n");
             System.out.println("Computer Lie Percentage set to: " + lie);
 
 
@@ -167,7 +164,7 @@ public class Main {
 
             // Adjust deck size after dealing
             deck.cards.trimToSize();
-            Collections.sort(P1.hand, Collections.reverseOrder());
+            Collections.sort(P1.hand);
 
 //            // FOR TESTING
 //            if (test) {
@@ -193,7 +190,7 @@ public class Main {
 
             // Rank Selection Menu
             System.out.println("\n");
-            System.out.println("-----Rank selection menu-----");
+            System.out.println("----- Rank selection menu -----");
             System.out.println("     2   3   4   5   6");
             System.out.println("     7   8   9   10");
             System.out.println("     Jack - 11    Queen - 12");
@@ -202,7 +199,6 @@ public class Main {
             System.out.println("Spades - " + spade);
             System.out.println("Hearts - " + RED + heart + RESET);
             System.out.println("Diamonds - " + RED + diamond + RESET);
-
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
