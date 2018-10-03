@@ -353,15 +353,10 @@ public class Main {
                     // Check for new books!
 
                     if (goFish) {
-
                         P1.checkBooks(P2, P1.hand.get(P1.hand.size()-1).rank);
-
                     }
-
                     else{
-
                         P1.checkBooks(P2, rankAsk1);
-
                     }
 
                     System.out.println("\n");
@@ -375,25 +370,15 @@ public class Main {
                         break;
 
                     }
-
-
                 }
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 System.out.println("P2 turn begins...");
 
                 boolean P2Turn = true;
-
                 String rankAsk2Temp;
 
-
                 while (P2Turn) {
-
                     if (P2.hand.size() == 0 && deck.cards.size() != 0){
 
                         // Grab card off top of deck/pool
@@ -407,27 +392,18 @@ public class Main {
                         deck.cards.trimToSize();
 
                         System.out.println("P2 ran out of cards and went fishing...");
-
                         rankAsk2Temp = draw.rank;
-
                         System.out.println("P2 asks for " + rankAsk2Temp);
-
 
                         fileRecord.append("Player 2 had no cards so they had to draw from the deck\n");
                         fileRecord.append("---------------Player 2 HAND------------------------\n");
 
                         for (int p = 0; p < P2.hand.size(); p++) {
-
                             fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-
                         }
-
                     }
-
                     else {
-
                         rankAsk2Temp = P2.determineAsk();
-
                     }
 
                     String rankAsk2 = rankAsk2Temp;
@@ -436,20 +412,16 @@ public class Main {
                     fileRecord.append("---------------Player 1 HAND------------------------\n");
 
                     for (int p = 0; p < P1.hand.size(); p++) {
-
                         fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-
                     }
+
                     fileRecord.append("---------------Player 2 HAND------------------------\n");
 
                     for (int p = 0; p < P2.hand.size(); p++) {
-
                         fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-
                     }
                     // Go Fish flag
                     boolean goFish = true;
-
 
                     // Loop through P1 hands looking for cards of requested rank
                     for (int i = 0; i < P1.hand.size(); i++) {
