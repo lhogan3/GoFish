@@ -142,7 +142,7 @@ public class Main {
             System.out.println("Clubs - " + club);
             System.out.println("Spades - " + spade);
             System.out.println("Hearts - " + RED + heart + RESET);
-            System.out.println("Diamonds - " + RED + diamond + RESET);
+            System.out.println("Diamonds - " + RED + diamond + RESET + "\n");
 
 
             // new game to start file over
@@ -214,8 +214,9 @@ public class Main {
                 boolean P1Turn = true;
                 while (P1Turn) {
                     Collections.sort(P1.hand);
+                    System.out.println("----- Book Count -----");
                     System.out.println("Your Books: " + P1.books);
-                    System.out.println("Player 2 Books: " + P2.books);
+                    System.out.println("Player 2 Books: " + P2.books + "\n");
 
                     String rankAsk1;
 
