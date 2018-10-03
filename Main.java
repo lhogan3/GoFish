@@ -571,15 +571,7 @@ public class Main {
 
 
                 }
-
-
-                System.out.println("---------------P2 HAND------------------------\n");
-
-                for (int p = 0; p < P2.hand.size(); p++) {
-
-                    System.out.println(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit);
-
-                }
+                
                 fileRecord.close();
             }
 
