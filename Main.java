@@ -7,6 +7,45 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static void fileIO(Player P1, ComputerPlayer P2, PrintWriter fileRecord){
+
+        fileRecord.append("---------------Player 1 HAND------------------------\n");
+        for (int p = 0; p < P1.hand.size(); p++) {
+
+            if(P1.hand.get(p).suit == ("\u001B[31m"+ "\u2665" + "\u001B[0m")){
+                P1.hand.get(p).suit = "\u2665";
+                fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
+                P1.hand.get(p).suit = "\u001B[31m"+ "\u2665" + "\u001B[0m";
+            }
+            else if(P1.hand.get(p).suit == "\u001B[31m" + "\u2666" + "\u001B[0m"){
+                P1.hand.get(p).suit = "\u2666";
+                fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
+                P1.hand.get(p).suit = "\u001B[31m" + "\u2666" + "\u001B[0m";
+            }
+            else{
+                fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
+            }
+
+        }
+
+        fileRecord.append("---------------Player 2 HAND------------------------\n");
+        for (int p = 0; p < P2.hand.size(); p++) {
+            if(P2.hand.get(p).suit == ("\u001B[31m"+ "\u2665" + "\u001B[0m")){
+                P2.hand.get(p).suit = "\u2665";
+                fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
+                P2.hand.get(p).suit = "\u001B[31m"+ "\u2665" + "\u001B[0m";
+            }
+            else if(P2.hand.get(p).suit == "\u001B[31m" + "\u2666" + "\u001B[0m"){
+                P2.hand.get(p).suit = "\u2666";
+                fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
+                P2.hand.get(p).suit = "\u001B[31m" + "\u2666" + "\u001B[0m";
+            }
+            else{
+                fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
+            }
+
+        }
+    }
     public static void main(String[] args) {
 
         //Unicode values for colors and reset.
@@ -192,21 +231,7 @@ public class Main {
                 fileRecord.append("Player 2 books: " + P2.books + "\n");
 
                 // print hands to file
-                fileRecord.append("---------------Player 1 HAND------------------------\n");
-
-                for (int p = 0; p < P1.hand.size(); p++) {
-
-                    fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-
-                }
-
-                fileRecord.append("---------------Player 2 HAND------------------------\n");
-
-                for (int p = 0; p < P2.hand.size(); p++) {
-
-                    fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-
-                }
+                fileIO(P1, P2, fileRecord);
 
 
                 //////////////////// Start P1 turn (keep asking until go fish (and go fish is not card requested))//////////////////////
@@ -239,12 +264,6 @@ public class Main {
                         fileRecord.append("Player 1 had no cards so they had to draw from the deck\n");
                         fileRecord.append("---------------Player 1 HAND------------------------\n");
 
-                        for (int p = 0; p < P1.hand.size(); p++) {
-
-                            fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-
-                        }
-
                     }
 
 
@@ -254,20 +273,7 @@ public class Main {
                     }
                     // put what player 1 asked for and then player 1 and 2 hands in file
                     fileRecord.append("Player 1 asked for " + rankAsk1 + "\n");
-                    fileRecord.append("---------------Player 1 HAND------------------------\n");
-
-                    for (int p = 0; p < P1.hand.size(); p++) {
-
-                        fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-
-                    }
-                    fileRecord.append("---------------Player 2 HAND------------------------\n");
-
-                    for (int p = 0; p < P2.hand.size(); p++) {
-
-                        fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-
-                    }
+                    fileIO(P1, P2, fileRecord);
 
                     // Add the requested rank to P2's "memory" if it is not already in it
                     // (P2 believes P1 has at least one of this rank (remove when P2 gets this card rank back or a book is laid down of that rank)
@@ -335,13 +341,7 @@ public class Main {
 
                             P1Turn = true;
 
-                            fileRecord.append("---------------Player 1 HAND------------------------\n");
-
-                            for (int p = 0; p < P1.hand.size(); p++) {
-
-                                fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-
-                            }
+                            fileIO(P1, P2, fileRecord);
 
                         }
 
@@ -395,11 +395,7 @@ public class Main {
                         System.out.println("P2 asks for " + rankAsk2Temp);
 
                         fileRecord.append("Player 2 had no cards so they had to draw from the deck\n");
-                        fileRecord.append("---------------Player 2 HAND------------------------\n");
-
-                        for (int p = 0; p < P2.hand.size(); p++) {
-                            fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-                        }
+                        fileIO(P1, P2, fileRecord);
                     }
                     else {
                         rankAsk2Temp = P2.determineAsk();
@@ -408,17 +404,7 @@ public class Main {
                     String rankAsk2 = rankAsk2Temp;
                     // put in file what computer asked for and then player 1 and 2 hand
                     fileRecord.append("Player 2 asked for " + rankAsk2 + "\n");
-                    fileRecord.append("---------------Player 1 HAND------------------------\n");
-
-                    for (int p = 0; p < P1.hand.size(); p++) {
-                        fileRecord.append(P1.hand.get(p).rank + " of " + P1.hand.get(p).suit + "\n");
-                    }
-
-                    fileRecord.append("---------------Player 2 HAND------------------------\n");
-
-                    for (int p = 0; p < P2.hand.size(); p++) {
-                        fileRecord.append(P2.hand.get(p).rank + " of " + P2.hand.get(p).suit + "\n");
-                    }
+                    fileIO(P1, P2, fileRecord);
                     // Go Fish flag
                     boolean goFish = true;
 
