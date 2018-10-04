@@ -244,8 +244,9 @@ public class Main {
                     System.out.println("Player 2 Books: " + P2.books + "\n");
 
                     String rankAsk1;
+                    String tempRankAsk1;
 
-                    if (P1.hand.size() == 0){
+                    if (P1.hand.size() == 0 && deck.cards.size() != 0){
 
                         // Grab card off top of deck/pool
                         Card draw = deck.cards.get(0);
@@ -260,17 +261,16 @@ public class Main {
                         System.out.println("You ran out of cards, you went fishing...");
                         System.out.println("You drew a: " + draw.rank + " of " + draw.suit + " !");
 
-                        rankAsk1 = draw.rank;
+                        tempRankAsk1 = draw.rank;
                         fileRecord.append("Player 1 had no cards so they had to draw from the deck\n");
                         fileRecord.append("---------------Player 1 HAND------------------------\n");
 
-                    }
-
-
-                    else {
+                    } else if(P1.hand.size() != 0 && deck.cards.size() != 0){
                         // Ask Player 1 which rank they would like to ask P2 for
-                        rankAsk1 = P1.ask();
+                        tempRankAsk1 = P1.ask();
                     }
+                    tempRankAsk1 = "0";
+                    rankAsk1 = tempRankAsk1;
                     // put what player 1 asked for and then player 1 and 2 hands in file
                     fileRecord.append("Player 1 asked for " + rankAsk1 + "\n");
                     fileIO(P1, P2, fileRecord);
@@ -366,7 +366,7 @@ public class Main {
                         System.out.println("\nGame Over!");
                         System.out.println("You: "  + P1.books);
                         System.out.println("Computer: "  + P2.books);
-                        break;
+                        game = false;
 
                     }
                 }
@@ -396,8 +396,9 @@ public class Main {
 
                         fileRecord.append("Player 2 had no cards so they had to draw from the deck\n");
                         fileIO(P1, P2, fileRecord);
-                    }
-                    else {
+                    } else if (P2.hand.size() == 0) {
+                        rankAsk2Temp = "1";
+                    } else {
                         rankAsk2Temp = P2.determineAsk();
                     }
 
@@ -451,6 +452,7 @@ public class Main {
                         if (draw.rank.equals(rankAsk2)) {
 
                             P2Turn = true;
+                            System.out.println("Computer got their wish!");
 
                         }
 
@@ -464,9 +466,9 @@ public class Main {
                     // Check for new books!
 
                     if (goFish) {
-
-                        P2.checkBooks(P2, P2.hand.get(P2.hand.size()-1).rank);
-
+                        if(P2.hand.size()-1 >= 0 ) {
+                            P2.checkBooks(P2, P2.hand.get(P2.hand.size() - 1).rank);
+                        }
                     }
 
                     else{
@@ -474,16 +476,15 @@ public class Main {
                         P2.checkBooks(P2, rankAsk2);
 
                     }
-
                     if (P1.books + P2.books == 13){
 
                         System.out.println("\nGame Over!");
                         System.out.println("You: "  + P1.books);
                         System.out.println("Computer: "  + P2.books);
                         game = false;
-                        break;
-
+                        P2Turn = false;
                     }
+
 
 
 
